@@ -295,6 +295,12 @@ pUIConfig->m_qActions->AddSlider("Distance Scale", &pAimConfig->m_fDistanceScale
 
 ---
 
+## Troubles
+
+For any problem ask there is [Issues](https://github.com/kiocode/xenon-cheats/issues) BEFORE CHECK IF THE PROBLEM IS ALREADY PRESENT.
+
+---
+
 ## Contributing
 
 Contributions are welcome! Please read the [CONTRIBUTING.md](https://github.com/kiocode/xenon/blob/main/CONTRIBUTING.md) file for details on how to contribute to the project.
