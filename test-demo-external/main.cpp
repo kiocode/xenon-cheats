@@ -379,7 +379,7 @@ static void TestRecoil(Builder& builder) {
 	Cheat cheat = builder.Build();
 
 	cheat.UseUpdate();
-	//cheat.UseUICustom(RenderingType::DIRECTX11);
+	//cheat.UseUICustom(RenderingBackend::DIRECTX11);
 	//cheat.UseAimbot();
 	cheat.UseNoRecoil();
 	//cheat.Use2DSpinbot();

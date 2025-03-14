@@ -31,7 +31,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 	builder.SetConsoleEnabled();
 
     pSystem->SetGameDimension(GameDimension::DIM_2D);
-    pSystem->SetRenderingType(RenderingType::DX11);
+    pSystem->SetRenderingBackend(RenderingBackend::DX11);
 	pSystem->m_fnW2S2D = [pSystem, pGameVariables](Vec2 pos) {
 		Unity::CCamera* cam = Unity::Camera::GetMain();
 

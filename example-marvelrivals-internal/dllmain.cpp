@@ -78,7 +78,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 	builder.SetConsoleEnabled();
 
 	pSystem->SetGameDimension(GameDimension::DIM_3D);
-	pSystem->SetRenderingType(RenderingType::DX12);
+	pSystem->SetRenderingBackend(RenderingBackend::DX12);
 	pSystem->m_fnW2S3D = [](Vec3 pos) {
 		SDK::FVector2D screenPos;
 		SDK::FVector unrealPos(pos.x, pos.z, pos.y);

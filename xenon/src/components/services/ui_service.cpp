@@ -36,33 +36,19 @@ void CUIService::Update() {
 
 bool CUIService::InitPresent(IDXGISwapChain* pSwapChain) {
 
-	switch (g_pXenon->g_pSystem->GetRenderingType()) {
-		case RenderingType::DX11: {
-			if (!SUCCEEDED(pSwapChain->GetDevice(__uuidof(ID3D11Device), (void**)&m_pDeviceDX11)))
-			{
-				return false;
-			}
-
-			m_pDeviceDX11->GetImmediateContext(&m_pContextDX11);
-			DXGI_SWAP_CHAIN_DESC sd;
-			pSwapChain->GetDesc(&sd);
-			m_hWindow = sd.OutputWindow;
-			ID3D11Texture2D* pBackBuffer = nullptr;
-			pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
-			m_pDeviceDX11->CreateRenderTargetView(pBackBuffer, NULL, &m_pMainRenderTargetViewDX11);
-			pBackBuffer->Release();
-			break;
-		}
-		case RenderingType::DX12: {
-			break;
-		}
-		case RenderingType::OPENGL2: {
-			break;
-		}
-		case RenderingType::OPENGL3: {
-			break;
-		}
+	if (!SUCCEEDED(pSwapChain->GetDevice(__uuidof(ID3D11Device), (void**)&m_pDeviceDX11)))
+	{
+		return false;
 	}
+
+	m_pDeviceDX11->GetImmediateContext(&m_pContextDX11);
+	DXGI_SWAP_CHAIN_DESC sd;
+	pSwapChain->GetDesc(&sd);
+	m_hWindow = sd.OutputWindow;
+	ID3D11Texture2D* pBackBuffer = nullptr;
+	pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
+	m_pDeviceDX11->CreateRenderTargetView(pBackBuffer, NULL, &m_pMainRenderTargetViewDX11);
+	pBackBuffer->Release();
 
 	oWndProc = (WNDPROC)SetWindowLongPtrA(m_hWindow, GWLP_WNDPROC, (LONG_PTR)WndProc);
 
@@ -602,6 +588,32 @@ LRESULT __stdcall CUIService::WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam,
 	}
 }
 
+void CUIService::AutoHook() {
+
+	g_hWindow = U::GetProcessWindow();
+
+	switch (m_pXenon->g_pSystem->GetRenderingBackend()) {
+		//case DX9:
+		//	DX9::ExecHook(g_hWindow);
+		//	break;
+		//case DX10:
+		//	DX10::ExecHook(g_hWindow);
+		//	break;
+		//case DX11:
+		//	DX11::ExecHook(g_hWindow);
+		//	break;
+		//case DX12:
+		//	DX12::ExecHook(g_hWindow);
+		//	break;
+	case OPENGL:
+		GL::ExecHook(g_hWindow);
+		break;
+		//case VULKAN:
+		//	VK::ExecHook(g_hWindow);
+		//	break;
+	}
+}
+
 void CUIService::InitExternal() {
 	if (CreateWindowUI()) {
 		if (CreateDeviceUI()) {
@@ -972,34 +984,34 @@ void CUIService::SetMenuClose() {
 void CUIService::ResetDeviceUI()
 {
 
-	switch (g_pXenon->g_pSystem->GetRenderingType()) {
-		case RenderingType::DX11:
+	switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
+		case RenderingBackend::DX11:
 			ImGui_ImplDX11_InvalidateDeviceObjects();
 			break;		
-		case RenderingType::DX12:
+		case RenderingBackend::DX12:
 			ImGui_ImplDX12_InvalidateDeviceObjects();
 			break;
-		case RenderingType::OPENGL2:
+		case RenderingBackend::OPENGL2:
 			ImGui_ImplOpenGL2_DestroyDeviceObjects();
 			break;
-		case RenderingType::OPENGL3:
+		case RenderingBackend::OPENGL3:
 			ImGui_ImplOpenGL3_DestroyDeviceObjects();
 			break;
 	}
 
 	DestroyDeviceUI();
 
-	switch (g_pXenon->g_pSystem->GetRenderingType()) {
-		case RenderingType::DX11:
+	switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
+		case RenderingBackend::DX11:
 			ImGui_ImplDX11_CreateDeviceObjects();
 			break;
-		case RenderingType::DX12:
+		case RenderingBackend::DX12:
 			ImGui_ImplDX12_CreateDeviceObjects();
 			break;
-		case RenderingType::OPENGL2:
+		case RenderingBackend::OPENGL2:
 			ImGui_ImplOpenGL2_CreateDeviceObjects();
 			break;
-		case RenderingType::OPENGL3:
+		case RenderingBackend::OPENGL3:
 			ImGui_ImplOpenGL3_CreateDeviceObjects();
 			break;
 	}
@@ -1032,17 +1044,17 @@ void CUIService::CreateImGuiUI()
 
 	if (g_pXenon->g_pSystem->IsInternal()) {
 
-		switch (g_pXenon->g_pSystem->GetRenderingType()) {
-			case RenderingType::DX11:
+		switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
+			case RenderingBackend::DX11:
 				ImGui_ImplDX11_Init(m_pDeviceDX11, m_pContextDX11);
 				break;
-			case RenderingType::DX12:
+			case RenderingBackend::DX12:
 				ImGui_ImplDX12_Init(m_pDeviceDX12, m_nBuffersCounts, DXGI_FORMAT_R8G8B8A8_UNORM, m_pDescriptorHeapImGuiRender, m_pDescriptorHeapImGuiRender->GetCPUDescriptorHandleForHeapStart(), m_pDescriptorHeapImGuiRender->GetGPUDescriptorHandleForHeapStart());
 				break;
-			case RenderingType::OPENGL2:
+			case RenderingBackend::OPENGL2:
 				ImGui_ImplOpenGL2_Init();
 				break;
-			case RenderingType::OPENGL3:
+			case RenderingBackend::OPENGL3:
 				ImGui_ImplOpenGL3_Init();
 				break;
 		}
@@ -1058,17 +1070,17 @@ void CUIService::CreateImGuiUI()
 void CUIService::DestroyImGuiUI()
 {
 
-	switch (g_pXenon->g_pSystem->GetRenderingType()) {
-	case RenderingType::DX11:
+	switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
+	case RenderingBackend::DX11:
 		ImGui_ImplDX11_Shutdown();
 		break;
-	case RenderingType::DX12:
+	case RenderingBackend::DX12:
 		ImGui_ImplDX12_Shutdown();
 		break;
-	case RenderingType::OPENGL2:
+	case RenderingBackend::OPENGL2:
 		ImGui_ImplOpenGL2_Shutdown();
 		break;
-	case RenderingType::OPENGL3:
+	case RenderingBackend::OPENGL3:
 		ImGui_ImplOpenGL3_Shutdown();
 		break;
 	}
@@ -1098,17 +1110,17 @@ void CUIService::BeginRenderUI()
 {
 
 	if (g_pXenon->g_pSystem->IsInternal()) {
-		switch (g_pXenon->g_pSystem->GetRenderingType()) {
-			case RenderingType::DX11:
+		switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
+			case RenderingBackend::DX11:
 				ImGui_ImplDX11_NewFrame();
 				break;
-			case RenderingType::DX12:
+			case RenderingBackend::DX12:
 				ImGui_ImplDX12_NewFrame();
 				break;
-			case RenderingType::OPENGL2:
+			case RenderingBackend::OPENGL2:
 				ImGui_ImplOpenGL2_NewFrame();
 				break;
-			case RenderingType::OPENGL3:
+			case RenderingBackend::OPENGL3:
 				ImGui_ImplOpenGL3_NewFrame();
 				break;
 		}
@@ -1172,19 +1184,19 @@ void CUIService::EndRenderUI()
 
 	if (g_pXenon->g_pSystem->IsInternal()) {
 
-		switch (g_pXenon->g_pSystem->GetRenderingType()) {
-			case RenderingType::DX11: {
+		switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
+			case RenderingBackend::DX11: {
 				m_pContextDX11->OMSetRenderTargets(1U, &m_pMainRenderTargetViewDX11, nullptr);
 				ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 				break;
 			}
-			case RenderingType::DX12:
+			case RenderingBackend::DX12:
 				ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), nullptr);
 				break;
-			case RenderingType::OPENGL2:
+			case RenderingBackend::OPENGL2:
 				ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 				break;
-			case RenderingType::OPENGL3:
+			case RenderingBackend::OPENGL3:
 				ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 				break;
 			default:

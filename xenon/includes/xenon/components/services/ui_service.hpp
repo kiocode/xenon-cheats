@@ -52,6 +52,8 @@ public:
     Present oPresent = NULL;
     WNDPROC oWndProc = NULL;
 
+    void AutoHook();
+
     bool InitPresent(IDXGISwapChain* pSwapChain);
 
     void InitExternal();

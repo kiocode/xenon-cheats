@@ -18,7 +18,7 @@ void Game::EnableUpdate() {
 
 	if (m_pXenon->g_pSystem->IsInternal()) {
 
-		switch (m_pXenonVariables->g_renderingType) {
+		switch (m_pXenon->g_pSystem->GetRenderingHookType()) {
 			case RenderingHookType::KIERO: {
 				kiero::bind(8, (void**)&m_pXenon->g_cUIService->oPresent, Game::BindForInternal);
 			} break;
@@ -36,8 +36,10 @@ void Game::EnableUpdate() {
 				m_pXenon->g_cUIService->oPresent = *steamPresent;
 				_InterlockedExchangePointer((volatile PVOID*)presentSteamAddr, Game::BindForInternal);
 			} break;
+			case RenderingHookType::AUTO: {
+				m_pXenon->g_cUIService->AutoHook();
+			} break;
 		}
-
 	}
 	else {
 

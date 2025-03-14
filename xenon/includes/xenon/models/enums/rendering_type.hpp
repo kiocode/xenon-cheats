@@ -1,10 +1,13 @@
 #pragma once
 
-enum RenderingType {
+enum RenderingBackend {
 	REND_NONE = 0,
+
 	DX9,
+	DX10,
 	DX11,
 	DX12,
-	OPENGL2,
-	OPENGL3
+
+	OPENGL,
+	VULKAN,
 };

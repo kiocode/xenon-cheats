@@ -10,7 +10,7 @@
 #include <xenon/models/waypoint.hpp>
 #include <il2cpp_resolver/il2cpp_resolver.hpp>
 
-#include "RedMatch2Dump/il2cpp.h"
+#include "ApeWarDump/il2cpp.h"
 
 float head = 0.8f;
 float feet = -0.8f;
@@ -62,7 +62,6 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 	builder.SetConsoleEnabled();
 
 	pSystem->SetGameDimension(GameDimension::DIM_3D);
-	pSystem->SetRenderingBackend(RenderingBackend::DX11);
 	pSystem->m_fnW2S3D = [pSystem, pGameVariables](Vec3 pos) {	
 		Vec2 screenPos;
 		WorldToScreen(pSystem->GetScreenResolution(), pos, screenPos);
@@ -112,7 +111,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 
 		Unity::il2cppArray<Unity::CComponent*>* pTargets = nullptr;
 		try {
-			pTargets = Unity::Object::FindObjectsOfType<Unity::CComponent>("PlayerController");
+			pTargets = Unity::Object::FindObjectsOfType<Unity::CComponent>("Photon.Realtime.Player");
 		}
 		catch (std::exception e) {
 			spdlog::error("Error: {}", e.what());
@@ -121,7 +120,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 		if (!pTargets) return;
 
 		for (int i = 0; i < pTargets->m_uMaxLength; i++) {
-			PlayerController_o* current = reinterpret_cast<PlayerController_o*>(pTargets->operator[](i));
+			Photon_Realtime_Player_o* current = reinterpret_cast<Photon_Realtime_Player_o*>(pTargets->operator[](i));
 			if (!current) continue;
 
 			Unity::CTransform* currTargetTransform = pTargets->operator[](i)->GetTransform();
@@ -144,10 +143,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 			sprintf_s(buffer, "Player %d", i);
 			targetProfile.m_strName = buffer;
 
-			if(current == current->klass->static_fields->LocalInstance)
-				pGameVariables->g_vLocal = targetProfile;
-			else
-				pGameVariables->g_vTargets.push_back(targetProfile);
+			pGameVariables->g_vTargets.push_back(targetProfile);
 			
 		}
 
@@ -156,7 +152,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 	});
 
 	Cheat cheat = builder.Build();
-	cheat.UseUICustom(RenderingHookType::KIERO);
+	cheat.UseUICustom(RenderingHookType::KIERO, RenderingBackend::DX11);
 	cheat.UseUIMenu();
 	cheat.UseUIRenderOverlays();
 	cheat.UseUIRenderEnabledCheats();

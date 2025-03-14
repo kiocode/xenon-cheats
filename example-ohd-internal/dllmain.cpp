@@ -24,7 +24,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
     pSystem->IsInternal(true);
     pSystem->IsUnrealEngine(UnrealEngineVersion::UE4);
     pSystem->SetGameDimension(GameDimension::DIM_3D);
-    pSystem->SetRenderingType(RenderingType::DX11);
+    pSystem->SetRenderingBackend(RenderingBackend::DX11);
 
     builder.SetInfoLogLevel();
     builder.SetConsoleEnabled();
@@ -41,7 +41,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
 	};
 
     // set configurations
-    pAimConfig->m_fDistanceScale = 0.06f;
+    pSystem->m_fDistanceScale = 0.06f;
     pAimConfig->m_nLimitDistance = 100000;
     pEspConfig->m_nLimitDistance = 100000;
     pEspConfig->m_fHealthBarWidth = 40;

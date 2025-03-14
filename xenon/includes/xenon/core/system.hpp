@@ -85,17 +85,30 @@ public:
 		return m_gameDimension == GameDimension::DIM_3D;
 	}
 
-	void SetRenderingType(RenderingType type) {
+	void SetRenderingHookType(RenderingHookType type) {
 
 		if (!m_bIsInternal) {
-			spdlog::warn("External cheat cannot change rendering type, DX11 will be used.");
+			spdlog::warn("External cheat don't need this.");
 		}
 
-		m_renderingType = type;
+		m_renderingHookType = type;
 	}
 
-	RenderingType GetRenderingType() const {
-		return m_renderingType;
+	RenderingHookType GetRenderingHookType() const {
+		return m_renderingHookType;
+	}
+
+	void SetRenderingBackend(RenderingBackend type) {
+
+		if (!m_bIsInternal) {
+			spdlog::warn("External cheat cannot change rendering backend, DX11 will be used.");
+		}
+
+		m_renderingBackend = type;
+	}
+
+	RenderingBackend GetRenderingBackend() const {
+		return m_renderingBackend;
 	}
 
 private:
@@ -105,7 +118,8 @@ private:
 	UnityEngineType m_unityEngineType = UnityEngineType::UNITY_NONE;
 	UnrealEngineVersion m_unrealEngineVersion = UnrealEngineVersion::UNREAL_NONE;
 	GameDimension m_gameDimension = GameDimension::DIM_NONE;
-	RenderingType m_renderingType = RenderingType::REND_NONE;
+	RenderingHookType m_renderingHookType = RenderingHookType::RENDERHOOK_NONE;
+	RenderingBackend m_renderingBackend = RenderingBackend::REND_NONE;
 
 	void GetDesktopResolution(int& horizontal, int& vertical);
 
