@@ -289,6 +289,16 @@ std::shared_ptr<UIConfig> pUIConfig = builder.xenonConfig->g_pUIConfig;
 pUIConfig->m_qActions->AddSlider("Distance Scale", &pAimConfig->m_fDistanceScale, 0.001, 2);
 ```
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=kiocode/xenon-cheats&type=Date)](https://star-history.com/#kiocode/xenon-cheats&Date)
+
+---
+
+## Troubles
+
+For any problem ask there is [Issues](https://github.com/kiocode/xenon-cheats/issues) BEFORE CHECK IF THE PROBLEM IS ALREADY PRESENT.
+
 ---
 
 ## Contributing
