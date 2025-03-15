@@ -31,9 +31,9 @@ void Inject(std::string dllPath, std::string exePath, std::string launchOptions)
 int main()
 {
 
+	Inject("C:\\Users\\toygg_vglszln\\OneDrive\\Desktop\\example-redmatch2-internal.dll", "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Redmatch 2\\Redmatch 2.exe", "");
 	//Inject("E:\\Projects\\xenon\\example-redmatch2-internal\\build\\example-redmatch2-internal.dll", "D:\\Steam\\steamapps\\common\\Redmatch 2\\Redmatch 2.exe", "");
-	Inject("E:\\Projects\\xenon\\example-amongus-internal\\build\\example-amongus-internal.dll", "D:\\Among Us\\Among Us.exe", "");
-
+	//Inject("E:\\Projects\\xenon\\example-amongus-internal\\build\\example-amongus-internal.dll", "D:\\Among Us\\Among Us.exe", "");
 
 	return 0;
 }
