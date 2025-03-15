@@ -276,13 +276,13 @@ public:
             return false;
         }
 
-        m_pXenon->g_pSystem->g_pUnityGameAssembly = (intptr_t)GetModuleHandle("GameAssembly.dll");
+        m_pXenon->g_pSystem->g_pUnityGameAssembly = (intptr_t)GetModuleHandleW(L"GameAssembly.dll");
         if (m_pXenon->g_pSystem->g_pUnityGameAssembly == 0) {
             //spdlog::error("Failed to get GameAssembly address");
             return false;
         }
 
-        m_pXenon->g_pSystem->g_pUnityPlayer = (intptr_t)GetModuleHandle("UnityPlayer.dll");
+        m_pXenon->g_pSystem->g_pUnityPlayer = (intptr_t)GetModuleHandleW(L"UnityPlayer.dll");
         if (m_pXenon->g_pSystem->g_pUnityPlayer == 0) {
             //spdlog::error("Failed to get UnityPlayer address");
             return false;
