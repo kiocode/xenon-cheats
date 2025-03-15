@@ -717,33 +717,6 @@
     <ClInclude Include="includes\xenon\utility\utilities.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\xenon\components\services\uihooks\backends\hook_directx9.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\xenon\components\services\uihooks\backends\hook_directx10.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\xenon\components\services\uihooks\backends\hook_directx11.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\xenon\components\services\uihooks\backends\hook_directx12.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\xenon\components\services\uihooks\backends\hook_opengl.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\xenon\components\services\uihooks\backends\hook_vulkan.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\xenon\components\services\uihooks\hook.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\xenon\components\services\uihooks\backend.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\xenon\components\services\uihooks\hooks.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\game.cpp">
@@ -951,27 +924,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="libs\ImGuiColorTextEdit\TextEditor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\components\services\uihooks\backends\hook_directx9.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\components\services\uihooks\backends\hook_directx10.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\components\services\uihooks\backends\hook_directx11.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\components\services\uihooks\backends\hook_directx12.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\components\services\uihooks\backends\hook_opengl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\components\services\uihooks\backends\hook_vulkan.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\components\services\uihooks\hooks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

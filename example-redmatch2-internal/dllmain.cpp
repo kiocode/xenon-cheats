@@ -62,7 +62,6 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 	builder.SetConsoleEnabled();
 
 	pSystem->SetGameDimension(GameDimension::DIM_3D);
-	pSystem->SetRenderingBackend(RenderingBackend::DX11);
 	pSystem->m_fnW2S3D = [pSystem, pGameVariables](Vec3 pos) {	
 		Vec2 screenPos;
 		WorldToScreen(pSystem->GetScreenResolution(), pos, screenPos);
@@ -156,7 +155,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 	});
 
 	Cheat cheat = builder.Build();
-	cheat.UseUICustom(RenderingHookType::KIERO);
+	cheat.UseUICustom(RenderingHookType::KIERO, RenderingBackend::DX11);
 	cheat.UseUIMenu();
 	cheat.UseUIRenderOverlays();
 	cheat.UseUIRenderEnabledCheats();

@@ -9,6 +9,7 @@
 #include <xenon/utility/vec3.hpp>
 #include <xenon/models/enums/game_dimension.hpp>
 #include <xenon/models/enums/rendering_type.hpp>
+#include <xenon/models/enums/rendering_hook_type.hpp>
 #include <xenon/models/enums/gameengine_type.hpp>
 #include <xenon/models/enums/unityengine_type.hpp>
 #include <xenon/models/enums/unrealengine_version.hpp>

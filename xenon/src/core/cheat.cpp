@@ -12,31 +12,31 @@ void Cheat::Run() {
 
         spdlog::info("Internal cheat initialized");
 
-   //     switch (m_pXenon->g_pSystem->GetRenderingHookType()) {
-   //         case RenderingHookType::KIERO: {
+        switch (m_pXenon->g_pSystem->GetRenderingHookType()) {
+            case RenderingHookType::KIERO: {
 
-   //             bool bInitialized = false;
-   //             do
-   //             {
-   //                 if (kiero::init(kiero::RenderType::D3D11) == kiero::Status::Success)
-   //                 {
-   //                     m_pGame->EnableUpdate();
-   //                     bInitialized = true;
-   //                 }
-   //                 else {
-   //                     spdlog::error("Failed to initialize kiero");
-   //                     std::this_thread::sleep_for(std::chrono::seconds(3));
-   //                 }
-   //             } while (!bInitialized);
+                bool bInitialized = false;
+                do
+                {
+                    if (kiero::init(kiero::RenderType::D3D11) == kiero::Status::Success)
+                    {
+                        m_pGame->EnableUpdate();
+                        bInitialized = true;
+                    }
+                    else {
+                        spdlog::error("Failed to initialize kiero");
+                        std::this_thread::sleep_for(std::chrono::seconds(3));
+                    }
+                } while (!bInitialized);
 
-   //         } break;
-   //         case RenderingHookType::DISCORD: {
-   //             m_pGame->EnableUpdate();
-   //         } break;
-   //         case RenderingHookType::STEAM: {
-			//	m_pGame->EnableUpdate();
-			//} break;
-   //     }
+            } break;
+            case RenderingHookType::DISCORD: {
+                m_pGame->EnableUpdate();
+            } break;
+            case RenderingHookType::STEAM: {
+				m_pGame->EnableUpdate();
+			} break;
+        }
 
 
     }

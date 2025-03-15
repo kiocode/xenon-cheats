@@ -36,9 +36,9 @@ void Game::EnableUpdate() {
 				m_pXenon->g_cUIService->oPresent = *steamPresent;
 				_InterlockedExchangePointer((volatile PVOID*)presentSteamAddr, Game::BindForInternal);
 			} break;
-			case RenderingHookType::AUTO: {
-				m_pXenon->g_cUIService->AutoHook();
-			} break;
+			//case RenderingHookType::AUTO: {
+			//	m_pXenon->g_cUIService->AutoHook();
+			//} break;
 		}
 	}
 	else {

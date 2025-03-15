@@ -588,31 +588,31 @@ LRESULT __stdcall CUIService::WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam,
 	}
 }
 
-void CUIService::AutoHook() {
-
-	g_hWindow = U::GetProcessWindow();
-
-	switch (m_pXenon->g_pSystem->GetRenderingBackend()) {
-		//case DX9:
-		//	DX9::ExecHook(g_hWindow);
-		//	break;
-		//case DX10:
-		//	DX10::ExecHook(g_hWindow);
-		//	break;
-		//case DX11:
-		//	DX11::ExecHook(g_hWindow);
-		//	break;
-		//case DX12:
-		//	DX12::ExecHook(g_hWindow);
-		//	break;
-	case OPENGL:
-		GL::ExecHook(g_hWindow);
-		break;
-		//case VULKAN:
-		//	VK::ExecHook(g_hWindow);
-		//	break;
-	}
-}
+//void CUIService::AutoHook() {
+//
+//	g_hWindow = U::GetProcessWindow();
+//
+//	switch (m_pXenon->g_pSystem->GetRenderingBackend()) {
+//		//case DX9:
+//		//	DX9::ExecHook(g_hWindow);
+//		//	break;
+//		//case DX10:
+//		//	DX10::ExecHook(g_hWindow);
+//		//	break;
+//		//case DX11:
+//		//	DX11::ExecHook(g_hWindow);
+//		//	break;
+//		//case DX12:
+//		//	DX12::ExecHook(g_hWindow);
+//		//	break;
+//	case OPENGL:
+//		GL::ExecHook(g_hWindow);
+//		break;
+//		//case VULKAN:
+//		//	VK::ExecHook(g_hWindow);
+//		//	break;
+//	}
+//}
 
 void CUIService::InitExternal() {
 	if (CreateWindowUI()) {
@@ -991,12 +991,12 @@ void CUIService::ResetDeviceUI()
 		case RenderingBackend::DX12:
 			ImGui_ImplDX12_InvalidateDeviceObjects();
 			break;
-		case RenderingBackend::OPENGL2:
-			ImGui_ImplOpenGL2_DestroyDeviceObjects();
-			break;
-		case RenderingBackend::OPENGL3:
-			ImGui_ImplOpenGL3_DestroyDeviceObjects();
-			break;
+		//case RenderingBackend::OPENGL2:
+		//	ImGui_ImplOpenGL2_DestroyDeviceObjects();
+		//	break;
+		//case RenderingBackend::OPENGL3:
+		//	ImGui_ImplOpenGL3_DestroyDeviceObjects();
+		//	break;
 	}
 
 	DestroyDeviceUI();
@@ -1008,12 +1008,12 @@ void CUIService::ResetDeviceUI()
 		case RenderingBackend::DX12:
 			ImGui_ImplDX12_CreateDeviceObjects();
 			break;
-		case RenderingBackend::OPENGL2:
-			ImGui_ImplOpenGL2_CreateDeviceObjects();
-			break;
-		case RenderingBackend::OPENGL3:
-			ImGui_ImplOpenGL3_CreateDeviceObjects();
-			break;
+		//case RenderingBackend::OPENGL2:
+		//	ImGui_ImplOpenGL2_CreateDeviceObjects();
+		//	break;
+		//case RenderingBackend::OPENGL3:
+		//	ImGui_ImplOpenGL3_CreateDeviceObjects();
+		//	break;
 	}
 
 }
@@ -1051,12 +1051,12 @@ void CUIService::CreateImGuiUI()
 			case RenderingBackend::DX12:
 				ImGui_ImplDX12_Init(m_pDeviceDX12, m_nBuffersCounts, DXGI_FORMAT_R8G8B8A8_UNORM, m_pDescriptorHeapImGuiRender, m_pDescriptorHeapImGuiRender->GetCPUDescriptorHandleForHeapStart(), m_pDescriptorHeapImGuiRender->GetGPUDescriptorHandleForHeapStart());
 				break;
-			case RenderingBackend::OPENGL2:
-				ImGui_ImplOpenGL2_Init();
-				break;
-			case RenderingBackend::OPENGL3:
-				ImGui_ImplOpenGL3_Init();
-				break;
+			//case RenderingBackend::OPENGL2:
+			//	ImGui_ImplOpenGL2_Init();
+			//	break;
+			//case RenderingBackend::OPENGL3:
+			//	ImGui_ImplOpenGL3_Init();
+			//	break;
 		}
 	}
 	else {
@@ -1077,12 +1077,12 @@ void CUIService::DestroyImGuiUI()
 	case RenderingBackend::DX12:
 		ImGui_ImplDX12_Shutdown();
 		break;
-	case RenderingBackend::OPENGL2:
-		ImGui_ImplOpenGL2_Shutdown();
-		break;
-	case RenderingBackend::OPENGL3:
-		ImGui_ImplOpenGL3_Shutdown();
-		break;
+	//case RenderingBackend::OPENGL2:
+	//	ImGui_ImplOpenGL2_Shutdown();
+	//	break;
+	//case RenderingBackend::OPENGL3:
+	//	ImGui_ImplOpenGL3_Shutdown();
+	//	break;
 	}
 
 	ImGui_ImplWin32_Shutdown();
@@ -1117,12 +1117,12 @@ void CUIService::BeginRenderUI()
 			case RenderingBackend::DX12:
 				ImGui_ImplDX12_NewFrame();
 				break;
-			case RenderingBackend::OPENGL2:
-				ImGui_ImplOpenGL2_NewFrame();
-				break;
-			case RenderingBackend::OPENGL3:
-				ImGui_ImplOpenGL3_NewFrame();
-				break;
+			//case RenderingBackend::OPENGL2:
+			//	ImGui_ImplOpenGL2_NewFrame();
+			//	break;
+			//case RenderingBackend::OPENGL3:
+			//	ImGui_ImplOpenGL3_NewFrame();
+			//	break;
 		}
 	}
 	else {
@@ -1193,12 +1193,12 @@ void CUIService::EndRenderUI()
 			case RenderingBackend::DX12:
 				ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), nullptr);
 				break;
-			case RenderingBackend::OPENGL2:
-				ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
-				break;
-			case RenderingBackend::OPENGL3:
-				ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-				break;
+			//case RenderingBackend::OPENGL2:
+			//	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
+			//	break;
+			//case RenderingBackend::OPENGL3:
+			//	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+			//	break;
 			default:
 				spdlog::error("Invalid rendering type");
 				return;
