@@ -21,7 +21,7 @@ struct offsets {
 
 struct offsets offsets;
 
-bool ddper = true;
+bool ddper = false;
 
 static void AddConfigurations(Builder& builder) {
 
@@ -168,6 +168,7 @@ int main()
 			Vec2 modifiedPos = originalPos;// + direction * distanceFactor;
 
 			TargetProfile targetProfile;
+			targetProfile.m_pOriginalAddress = (intptr_t)&server->players[i];
 			targetProfile.m_fWidth = 64;
 			targetProfile.m_vVelocity2D = server->players[i].vel;
 			targetProfile.m_vPos2D = modifiedPos;
