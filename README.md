@@ -4,7 +4,7 @@
 
 This README provides an overview of the framework, examples of how to create projects using Xenon, and a comparison between internal and external cheats, as well as support for Unreal Engine and Unity.
 
-### NOTE: A complete documentation is under elaboration.
+### NOTE: A complete documentation is under elaboration
 ---
 
 ## Table of Contents
