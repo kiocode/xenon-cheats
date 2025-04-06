@@ -1,2 +1,0 @@
-﻿  dllmain.cpp
-E:\Projects\xenon\test\dllmain.cpp(16,1): error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?
