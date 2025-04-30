@@ -1,3 +1,15 @@
+/**
+ * @file game.hpp
+ * @author Samuele Radici (kiocode.com)
+ * @brief Xenon Game Header File
+ * @details This file contains the definition of the Game class, which is responsible for handling game-related functionality in the Xenon cheat engine.
+ * @version 0.1
+ * @date 2025-05-01
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #pragma once
 
 #include <string>
@@ -14,11 +26,8 @@
 #include <xenon/components/component.hpp>
 
 /**
- * @class Game
- * @brief A class responsible for managing game-specific functionality in the Xenon framework.
- *
- * The Game class handles game events, update cycles, and interacts with core components and configurations.
- * It provides event-driven mechanisms and binds UI services for rendering.
+ * @brief A class that represents the game functionality in the Xenon cheat engine.
+ * 
  */
 class Game {
 public:
@@ -34,12 +43,27 @@ public:
         UpdateWrapper = std::bind(&Game::Update, this);
     }
 
+    /**
+     * @brief Enable the update loop for the game.
+     * 
+     */
     void EnableUpdate();
 
+    /**
+     * @brief Used to intercept the update loop of the game and update your data like targets position, health, etc.
+     * 
+     * @param eventName The name of the event to trigger. (es. "Update")
+     * @param callback The callback function to execute when the event is triggered.
+     */
     void OnEvent(const std::string& eventName, const std::function<void()>& callback) {
         updateCallbacks[eventName].push_back(callback);
     }
 
+    /**
+     * @brief Trigger the event with the given name. This will execute all the callbacks associated with the event.
+     * 
+     * @param eventName The name of the event to trigger. (es. "Update")
+     */
     void TriggerEvent(const std::string& eventName) {
         if (updateCallbacks.find(eventName) != updateCallbacks.end()) {
             for (const auto& callback : updateCallbacks[eventName]) {
@@ -48,10 +72,22 @@ public:
         }
     }
 
+    /**
+     * @brief Used to intercept the update loop of the game and update your data like targets position, health, etc.
+     * 
+     * @param eventName The name of the event to trigger. (es. "Update")
+     * @param callback The callback function to execute when the event is triggered.
+     */
     void OnEvent(const std::string& eventName, const std::function<void(TargetProfile* target)>& callback) {
         updateCurrentTargetCallbacks[eventName].push_back(callback);
     }
 
+    /**
+     * @brief Trigger the event with the given name. This will execute all the callbacks associated with the event.
+     * 
+     * @param eventName The name of the event to trigger. (es. "Update")
+     * @param target The target profile to pass to the callback function.
+     */
     void TriggerEvent(const std::string& eventName, TargetProfile* target) {
         if (updateCurrentTargetCallbacks.find(eventName) != updateCurrentTargetCallbacks.end()) {
             for (const auto& callback : updateCurrentTargetCallbacks[eventName]) {
@@ -60,6 +96,11 @@ public:
         }
     }
 
+    /**
+     * @brief Clear the event with the given name. This will remove all the callbacks associated with the event.
+     * 
+     * @param eventName The name of the event to clear. (es. "Update")
+     */
     void ClearEvent(const std::string& eventName) {
         updateCallbacks.erase(eventName);
         updateCurrentTargetCallbacks.erase(eventName);

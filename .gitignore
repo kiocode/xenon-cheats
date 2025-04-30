@@ -1,3 +1,4 @@
+
 # Prerequisites
 *.d
 
@@ -35,3 +36,7 @@
 build/
 lib64-build/
 example-vrising-internal/VRisingDump/il2cpp.h
+xenon/includes/xenon/components/features/waypoints.hpp
+example-sg-internal
+xenon/includes/xenon/components/features/waypoints.hpp
+docs/generated/html
