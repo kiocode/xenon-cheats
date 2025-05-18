@@ -128,19 +128,6 @@ void CAimbot::SetTarget(Vec2& pos) {
     m_vTarget = pos;
 }
 
-void CAimbot::AimTargetWithPrediction(Vec2& vel) {
-
-    // calc predicted target
-    auto predictedTarget = /*prediction*/ m_vTarget;
-
-    g_pXenon->g_cAimService->Aim(predictedTarget);
-
-    if (IsTargetReached()) {
-        ResetTarget();
-    }
-
-}
-
 void CAimbot::AimTarget() {
 
     if (IsTargetEmpty()) {

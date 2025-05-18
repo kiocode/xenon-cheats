@@ -1,7 +1,23 @@
+/**
+ * @file vec3.hpp
+ * @author Samuele Radici (kiocode.com)
+ * @brief Vec3.
+ * @details This file contains the vec3 class.
+ * @version 0.1
+ * @date 2025-05-02
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #pragma once
 
 #include <cmath>
 
+/**
+ * @brief Vec3.
+ * @details This class is responsible for the vec3.
+ */
 class Vec3 {
 public:
     float x, y, z;

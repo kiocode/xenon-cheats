@@ -1,3 +1,15 @@
+/**
+ * @file injection_service.hpp
+ * @author Samuele Radici (kiocode.com)
+ * @brief Injection service component.
+ * @details This component is responsible for injecting a DLL into a process.
+ * @version 0.1
+ * @date 2025-05-02
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #pragma once
 
 #include <Windows.h>
@@ -23,11 +35,45 @@
 #define RELOC_FLAG RELOC_FLAG32
 #endif
 
+/**
+ * @brief Injection service component.
+ * @details This component is responsible for injecting a DLL into a process.
+ * 
+ */
 class CInjectionService : public CComponent {
 public:
+
+    /**
+     * @brief Load a library DLL.
+     * @param hProc Handle to the process.
+     * @param dllpath Path to the DLL.
+     * @return True if the DLL was loaded, false otherwise.
+     */
 	bool LoadLibraryDLL(HANDLE hProc, const std::string& dllpath);
+
+    /**
+     * @brief Inject a DLL into a process.
+     * @param hProcess Handle to the process.
+     * @param dllPath Path to the DLL.
+     * @param type Type of injection.
+     */
 	void Inject(HANDLE hProcess, const std::string& dllPath, InjectionType type);
+
+    /**
+     * @brief Open a game.
+     * @param phProcess Handle to the process.
+     * @param phThread Handle to the thread.
+     * @param exePath Path to the executable.
+     * @param launchOptions Launch options.
+     */
 	bool OpenGame(HANDLE* phProcess, HANDLE* phThread, std::string exePath, std::string launchOptions);
+
+    /**
+     * @brief Manual map a DLL into a process.
+     * @param hProc Handle to the process.
+     * @param filepath Path to the DLL.
+     * @return True if the DLL was mapped, false otherwise.
+     */
 	bool ManualMapDLL(HANDLE hProc, const std::string& filepath);
 private:
 	static void __stdcall Shellcode(ManualMappingData* pData);

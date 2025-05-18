@@ -1,3 +1,15 @@
+/**
+ * @file lua_service.hpp
+ * @author Samuele Radici (kiocode.com)
+ * @brief Lua service component.
+ * @details This component is responsible for executing Lua scripts.
+ * @version 0.1
+ * @date 2025-05-02
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #pragma once
 
 #include <string>
@@ -9,6 +21,11 @@
 #include <xenon/components/component.hpp>
 #include <ImGuiColorTextEdit/TextEditor.h>
 
+/**
+ * @brief Lua service component.
+ * @details This component is responsible for executing Lua scripts.
+ * 
+ */
 class CLuaService : public CComponent {
 public:
 
@@ -30,6 +47,9 @@ public:
     }
 
 
+    /**
+     * @brief Initialize the Lua service.
+     */
     void Init() override {
         TextEditor::LanguageDefinition lang = TextEditor::LanguageDefinition::Lua();
 
@@ -58,10 +78,22 @@ public:
 
     }
 
+    /**
+     * @brief Execute a script.
+     * @param script Script to execute.
+     * @return Result of the script.
+     */
     sol::protected_function_result ExecuteScript(std::string script);
 
+    /**
+     * @brief Execute a script file.
+     * @param path Path to the script file.
+     */
     void ExecuteScriptFile(std::string path);
 
+    /**
+     * @brief Update the Lua service.
+     */
     void Update() override;
 
 private:

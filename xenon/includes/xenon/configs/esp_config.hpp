@@ -1,8 +1,24 @@
+/**
+ * @file esp_config.hpp
+ * @author Samuele Radici (kiocode.com)
+ * @brief ESP config.
+ * @details This config is responsible for the ESP settings.
+ * @version 0.1
+ * @date 2025-05-02
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #pragma once
 
 #include <functional>
 #include <imgui/imgui.h>
 
+/**
+ * @brief ESP config.
+ * @details This config is responsible for the ESP settings.
+ */
 class EspConfig {
 public:
 

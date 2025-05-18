@@ -1,3 +1,15 @@
+/**
+ * @file cheat.hpp
+ * @author Samuele Radici (kiocode.com)
+ * @brief Cheat.
+ * @details This file contains the cheat class.
+ * @version 0.1
+ * @date 2025-05-02
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #pragma once
 
 #include <memory>
@@ -16,6 +28,10 @@
 #include <xenon/core/xenon_variables.hpp>
 #include <xenon/core/xenon_core.hpp>
 
+/**
+ * @brief Cheat.
+ * @details This class is responsible for the cheat.
+ */
 class Cheat {
 public:
 
@@ -25,6 +41,9 @@ public:
         std::shared_ptr<Game> pGame
     ) : m_pXenon(pXenon), m_pXenonVariables(pXenonVariables), m_pGame(pGame) { }
 
+    /**
+     * @brief Use the update.
+     */
     void UseUpdate() {
 
         m_pXenonVariables->g_bUpdate = true;
@@ -32,6 +51,11 @@ public:
         spdlog::info("Update is enabled");
     }
 
+    /**
+     * @brief Use the custom UI.
+     * @param renderingHookType Rendering hook type.
+     * @param renderingType Rendering type.
+     */
     void UseUICustom(RenderingHookType renderingHookType, RenderingBackend renderingType) {
 
         if (!m_pXenon->g_pSystem->IsInternal()) {
@@ -56,6 +80,9 @@ public:
         spdlog::info("Custom UI is enabled");
     }
 
+    /**
+     * @brief Use the custom UI.
+     */
     void UseUICustom() {
 
         if (m_pXenon->g_pSystem->IsInternal()) {
@@ -68,6 +95,9 @@ public:
         spdlog::info("Custom UI is enabled");
     }
 
+    /**
+     * @brief Use the aimbot.
+     */
     void UseAimbot() {
 
         m_pXenonVariables->g_bAimbot = true;
@@ -75,6 +105,9 @@ public:
         spdlog::info("Aimbot is enabled");
     }
 
+    /**
+     * @brief Use the fov.
+     */
     void UseFov() {
 
         if (!m_pXenonVariables->g_bRenderUI) {
@@ -87,6 +120,9 @@ public:
         spdlog::info("Fov is enabled");
     }
 
+    /**
+     * @brief Use the no recoil.
+     */
     void UseNoRecoil() {
 
         m_pXenonVariables->g_bNoRecoil = true;
@@ -94,6 +130,9 @@ public:
         spdlog::info("Recoil is enabled");
     }
 
+    /**
+     * @brief Use the 2D spinbot.
+     */
     void Use2DSpinbot() {
 
         m_pXenonVariables->g_bSpinbot2D = true;
@@ -101,6 +140,9 @@ public:
         spdlog::info("Spinbot 2D is enabled");
     }
 
+    /**
+     * @brief Use the 3D spinbot.
+     */
     void Use3DSpinbot() {
 
         m_pXenonVariables->g_bSpinbot3D = true;
@@ -108,6 +150,9 @@ public:
         spdlog::info("Spinbot 3D is enabled");
     }
 
+    /**
+     * @brief Use the radar.
+     */
     void UseUIRadar() {
 
         if (!m_pXenonVariables->g_bRenderUI) {
@@ -121,6 +166,9 @@ public:
 
     }
 
+    /**
+     * @brief Use the menu.
+     */
     void UseUIMenu() {
         if (!m_pXenonVariables->g_bRenderUI) {
             spdlog::error("UI Menu can only be used with Custom UI");
@@ -133,6 +181,9 @@ public:
 
     }
 
+    /**
+     * @brief Use the render mouse.
+     */
     void UseUIRenderMouse() {
 
         if (!m_pXenonVariables->g_bRenderUI) {
@@ -145,6 +196,9 @@ public:
         spdlog::info("UI Custom Draw List of Mouse is enabled");
     }
 
+    /**
+     * @brief Use the render windows.
+     */
     void UseUIRenderWindows() {
 
         if (!m_pXenonVariables->g_bRenderUI) {
@@ -158,6 +212,9 @@ public:
 
     }
 
+    /**
+     * @brief Use the render overlays.
+     */
     void UseUIRenderOverlays() {
 
         if (!m_pXenonVariables->g_bRenderUI) {
@@ -171,6 +228,9 @@ public:
 
     }
 
+    /**
+     * @brief Use the render enabled cheats.
+     */
     void UseUIRenderEnabledCheats() {
 
         if (!m_pXenonVariables->g_bRenderUI) {
@@ -184,6 +244,9 @@ public:
 
     }
 
+    /**
+     * @brief Use the UI quick actions.
+     */
     void UseUIQuickActions() {
 
         if (!m_pXenonVariables->g_bRenderUI) {
@@ -197,6 +260,9 @@ public:
 
     }
 
+    /**
+     * @brief Use the ESP snapline.
+     */
     void UseESPSnapline() {
 
         if (!m_pXenonVariables->g_bRenderUI) {
@@ -214,6 +280,9 @@ public:
 
     }
 
+    /**
+     * @brief Use the ESP box 2D.
+     */
     void UseESPBox2D() {
 
         if (!m_pXenonVariables->g_bRenderUI) {
@@ -230,6 +299,9 @@ public:
         spdlog::info("2D Box ESP is enabled");
     }
 
+    /**
+     * @brief Use the ESP box 3D.
+     */
     void UseESPBox3D() {
 
         if (!m_pXenonVariables->g_bRenderUI) {
@@ -246,6 +318,9 @@ public:
         spdlog::info("3D Box ESP is enabled");
     }
 
+    /**
+     * @brief Use the ESP skeleton.
+     */
     void UseESPSkeleton() {
 
         if (!m_pXenonVariables->g_bRenderUI) {
@@ -262,6 +337,9 @@ public:
         spdlog::info("Skeleton ESP is enabled");
     }
 
+    /**
+     * @brief Use the ESP health bar.
+     */
     void UseESPHealthBar() {
 
         if (!m_pXenonVariables->g_bRenderUI) {
@@ -278,8 +356,15 @@ public:
         spdlog::info("Health Bar ESP is enabled");
     }
 
+    /**
+     * @brief Run the cheat.
+     */
     void Run();
 
+    /**
+     * @brief Fetch the SDK if game is il2cpp Unity.
+     * @return True if the SDK was fetched, false otherwise.
+     */
     bool FetchSDK() const {
 
         m_pXenon->g_pSystem->g_pUnityBase = (intptr_t)GetModuleHandle(NULL);

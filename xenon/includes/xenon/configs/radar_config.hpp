@@ -1,13 +1,23 @@
+/**
+ * @file radar_config.hpp
+ * @author Samuele Radici (kiocode.com)
+ * @brief Radar config.
+ * @details This config is responsible for the radar settings.
+ * @version 0.1
+ * @date 2025-05-02
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #pragma once
 
 #include <functional>
 
 /**
- * @class RadarConfig
- * @brief Configuration settings for the radar system.
- *
- * This class holds various parameters for customizing the radar,
- * including size, zoom level, and target display options.
+ * @brief Radar config.
+ * @details This config is responsible for the radar settings.
+ * 
  */
 class RadarConfig {
 public:

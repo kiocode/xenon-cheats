@@ -1,3 +1,15 @@
+/**
+ * @file ui_service.hpp
+ * @author Samuele Radici (kiocode.com)
+ * @brief UI service component.
+ * @details This component is responsible for rendering the UI.
+ * @version 0.1
+ * @date 2025-05-02
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #pragma once
 
 #include <memory>
@@ -37,14 +49,13 @@ enum SubTabs {
     COLORS,
 };
 
+/**
+ * @brief UI service component.
+ * @details This component is responsible for rendering the UI.
+ * 
+ */
 class CUIService : public CComponent {
 public:
-
-    void Init() override {
-        m_bShowMenu = &g_pXenonVariables->g_bShowMenu;
-        m_pSystem = g_pXenon->g_pSystem;
-        m_pOWndProc = &oWndProc;
-    }
 
     Hotkey testhotkey;
     bool isEditing = false;
@@ -52,32 +63,80 @@ public:
     Present oPresent = NULL;
     WNDPROC oWndProc = NULL;
 
-    //void AutoHook();
+    /**
+     * @brief Initialize the UI service.
+     */
+    void Init() override {
+        m_bShowMenu = &g_pXenonVariables->g_bShowMenu;
+        m_pSystem = g_pXenon->g_pSystem;
+        m_pOWndProc = &oWndProc;
+    }
 
+    /**
+     * @brief Initialize the present function.
+     * @param pSwapChain Swap chain.
+     * @return True if the present function was initialized, false otherwise.
+     */
     bool InitPresent(IDXGISwapChain* pSwapChain);
 
+    /**
+     * @brief Initialize the external function.
+     */
     void InitExternal();
 
+    /**
+     * @brief Update the UI.
+     */
     void UpdateUI();
 
+    /**
+     * @brief Destroy the UI.
+     */
     void Destroy();
 
+    /**
+     * @brief Begin render the UI.
+     */
     void BeginRenderUI();
 
+    /**
+     * @brief End render the UI.
+     */
     void EndRenderUI();
 
+    /**
+     * @brief Set the menu open.
+     */
     void SetMenuOpen();
 
+    /**
+     * @brief Set the menu close.
+     */
     void SetMenuClose();
 
+    /**
+     * @brief Create the ImGui UI.
+     */
     void CreateImGuiUI();
 
+    /**
+     * @brief Render the crosshair.
+     */
     void RenderCrosshair();
 
+    /**
+     * @brief Render the FOV.
+     */
     void RenderFov();
 
+    /**
+     * @brief Render the enabled cheats.
+     */
     void RenderEnabledCheats();
 
+    /**
+     * @brief Update the UI.
+     */
     void Update() override;
 
 private:

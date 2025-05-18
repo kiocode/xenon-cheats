@@ -1,7 +1,23 @@
+/**
+ * @file vec2.hpp
+ * @author Samuele Radici (kiocode.com)
+ * @brief Vec2.
+ * @details This file contains the vec2 class.
+ * @version 0.1
+ * @date 2025-05-02
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #pragma once
 
 #include <cmath>
 
+/**
+ * @brief Vec2.
+ * @details This class is responsible for the vec2.
+ */
 class Vec2 {
 public:
     float x, y;

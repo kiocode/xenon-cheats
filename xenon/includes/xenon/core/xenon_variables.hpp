@@ -1,9 +1,25 @@
+/**
+ * @file xenon_variables.hpp
+ * @author Samuele Radici (kiocode.com)
+ * @brief Xenon variables.
+ * @details This file contains the xenon variables class.
+ * @version 0.1
+ * @date 2025-05-02
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #pragma once
 
 #include <xenon/models/enums/rendering_hook_type.hpp>
 
 #include <winuser.rh>
 
+/**
+ * @brief Xenon variables.
+ * @details This class is responsible for the xenon variables.
+ */
 class XenonVariables {
 public:
 

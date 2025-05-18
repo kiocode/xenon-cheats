@@ -1,8 +1,25 @@
+/**
+ * @file aim_config.hpp
+ * @author Samuele Radici (kiocode.com)
+ * @brief Aim config.
+ * @details This config is responsible for the aim settings.
+ * @version 0.1
+ * @date 2025-05-02
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #pragma once
 
 #include <functional>
 #include <imgui/imgui.h>
 
+/**
+ * @brief Aim config.
+ * @details This config is responsible for the aim settings.
+ * 
+ */
 class AimConfig {
 public:
 

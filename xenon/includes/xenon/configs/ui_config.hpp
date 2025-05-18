@@ -1,9 +1,25 @@
+/**
+ * @file ui_config.hpp
+ * @author Samuele Radici (kiocode.com)
+ * @brief UI config.
+ * @details This config is responsible for the UI settings.
+ * @version 0.1
+ * @date 2025-05-02
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #pragma once
 
 #include <functional>
 #include <vector>
 #include <xenon/models/quickactions/quickactions.hpp>
 
+/**
+ * @brief UI config.
+ * @details This config is responsible for the UI settings.
+ */
 class UIConfig {
 public:
 

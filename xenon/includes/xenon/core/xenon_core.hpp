@@ -1,5 +1,16 @@
-#pragma once
+/**
+ * @file xenon_core.hpp
+ * @author Samuele Radici (kiocode.com)
+ * @brief Xenon core.
+ * @details This file contains the xenon core class.
+ * @version 0.1
+ * @date 2025-05-02
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 
+#pragma once
 #include <memory>
 
 class System;
@@ -16,6 +27,10 @@ class CInjectionService;
 class CNotificationService;
 class CUIService;
 
+/**
+ * @brief Xenon core.
+ * @details This class is responsible for the xenon core.
+ */
 class Xenon {
 public:
 

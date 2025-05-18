@@ -1,3 +1,15 @@
+/**
+ * @file xenon_config.hpp
+ * @author Samuele Radici (kiocode.com)
+ * @brief Xenon config.
+ * @details This file contains the xenon config class.
+ * @version 0.1
+ * @date 2025-05-02
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #pragma once
 
 #include <memory>
@@ -9,6 +21,10 @@
 #include <xenon/configs/ui_config.hpp>
 #include <xenon/configs/waypoints_config.hpp>
 
+/**
+ * @brief Xenon config.
+ * @details This class is responsible for the xenon config.
+ */
 class XenonConfig {
 public:
 

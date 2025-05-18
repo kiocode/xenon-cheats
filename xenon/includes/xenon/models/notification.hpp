@@ -1,3 +1,15 @@
+/**
+ * @file notification.hpp
+ * @author Samuele Radici (kiocode.com)
+ * @brief Notification.
+ * @details This file contains the notification class.
+ * @version 0.1
+ * @date 2025-05-02
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #include <string>
 #include <functional>
 
@@ -6,6 +18,10 @@
 
 #include <xenon/utility/imgui_helper.hpp>
 
+/**
+ * @brief Notification.
+ * @details This class is responsible for the notification.
+ */
 class Notification {
 public:
 
