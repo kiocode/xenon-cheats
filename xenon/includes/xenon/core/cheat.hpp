@@ -53,27 +53,17 @@ public:
 
     /**
      * @brief Use the custom UI.
-     * @param renderingHookType Rendering hook type.
      * @param renderingType Rendering type.
      */
-    void UseUICustom(RenderingHookType renderingHookType, RenderingBackend renderingType) {
+    void UseUICustom(RenderingBackend renderingType) {
 
-        if (!m_pXenon->g_pSystem->IsInternal()) {
-            spdlog::warn("Rendering hook type is not necessary if the cheat is External");;
-        }
-        else {
-            if (renderingHookType == RenderingHookType::RENDERHOOK_NONE) {
-				spdlog::error("Rendering hook type must be specified if the cheat is Internal");
-				return;
-			}
-
+        if (m_pXenon->g_pSystem->IsInternal()) {
             if (renderingType == RenderingBackend::REND_NONE) {
                 spdlog::error("Rendering type must be specified if the cheat is Internal");
 				return;
             }
         }
 
-        m_pXenon->g_pSystem->SetRenderingHookType(renderingHookType);
         m_pXenon->g_pSystem->SetRenderingBackend(renderingType);
         m_pXenonVariables->g_bRenderUI = true;
 
@@ -359,7 +349,8 @@ public:
     /**
      * @brief Run the cheat.
      */
-    void Run();
+    void Run(HINSTANCE hinstDLL); // internal
+    void Run(); // external
 
     /**
      * @brief Fetch the SDK if game is il2cpp Unity.

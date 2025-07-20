@@ -47,7 +47,8 @@ public:
      * @brief Enable the update loop for the game.
      * 
      */
-    void EnableUpdate();
+    void EnableUpdate(HINSTANCE hinstDLL); // internal
+    void EnableUpdate(); // external
 
     /**
      * @brief Used to intercept the update loop of the game and update your data like targets position, health, etc.
@@ -124,7 +125,8 @@ private:
 
     void HandleShortcuts();
 
-    static HRESULT __stdcall BindForInternal(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
+    //static HRESULT __stdcall BindForInternal(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
+    DWORD WINAPI BindForInternal(LPVOID lpParam);
 
     void BindForExternal();
 

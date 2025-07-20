@@ -15,7 +15,7 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-void CUIService::Update() {
+void CUIService::Render() {
 
 	if (g_pXenonVariables->g_bCrosshair) {
 		RenderCrosshair();
@@ -34,26 +34,26 @@ void CUIService::Update() {
 	}
 }
 
-bool CUIService::InitPresent(IDXGISwapChain* pSwapChain) {
-
-	if (!SUCCEEDED(pSwapChain->GetDevice(__uuidof(ID3D11Device), (void**)&m_pDeviceDX11)))
-	{
-		return false;
-	}
-
-	m_pDeviceDX11->GetImmediateContext(&m_pContextDX11);
-	DXGI_SWAP_CHAIN_DESC sd;
-	pSwapChain->GetDesc(&sd);
-	m_hWindow = sd.OutputWindow;
-	ID3D11Texture2D* pBackBuffer = nullptr;
-	pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
-	m_pDeviceDX11->CreateRenderTargetView(pBackBuffer, NULL, &m_pMainRenderTargetViewDX11);
-	pBackBuffer->Release();
-
-	oWndProc = (WNDPROC)SetWindowLongPtrA(m_hWindow, GWLP_WNDPROC, (LONG_PTR)WndProc);
-
-	return true;
-}
+//bool CUIService::InitPresent(IDXGISwapChain* pSwapChain) {
+//
+//	if (!SUCCEEDED(pSwapChain->GetDevice(__uuidof(ID3D11Device), (void**)&m_pDeviceDX11)))
+//	{
+//		return false;
+//	}
+//
+//	m_pDeviceDX11->GetImmediateContext(&m_pContextDX11);
+//	DXGI_SWAP_CHAIN_DESC sd;
+//	pSwapChain->GetDesc(&sd);
+//	m_hWindow = sd.OutputWindow;
+//	ID3D11Texture2D* pBackBuffer = nullptr;
+//	pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
+//	m_pDeviceDX11->CreateRenderTargetView(pBackBuffer, NULL, &m_pMainRenderTargetViewDX11);
+//	pBackBuffer->Release();
+//
+//	oWndProc = (WNDPROC)SetWindowLongPtrA(m_hWindow, GWLP_WNDPROC, (LONG_PTR)WndProc);
+//
+//	return true;
+//}
 
 void CUIService::LoadDefaultFonts()
 {
@@ -580,12 +580,12 @@ LRESULT __stdcall CUIService::WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam,
 		return true;
 	}
 
-	if (m_pSystem->IsInternal()) {
-		return CallWindowProcA(*m_pOWndProc, hWnd, uMsg, wParam, lParam);
-	}
-	else {
+	//if (m_pSystem->IsInternal()) {
+	//	return CallWindowProcA(*m_pOWndProc, hWnd, uMsg, wParam, lParam);
+	//}
+	//else {
 		return DefWindowProcA(hWnd, uMsg, wParam, lParam);
-	}
+	//}
 }
 
 //void CUIService::AutoHook() {
@@ -981,43 +981,43 @@ void CUIService::SetMenuClose() {
 
 }
 
-void CUIService::ResetDeviceUI()
-{
-
-	switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
-		case RenderingBackend::DX11:
-			ImGui_ImplDX11_InvalidateDeviceObjects();
-			break;		
-		case RenderingBackend::DX12:
-			ImGui_ImplDX12_InvalidateDeviceObjects();
-			break;
-		//case RenderingBackend::OPENGL2:
-		//	ImGui_ImplOpenGL2_DestroyDeviceObjects();
-		//	break;
-		//case RenderingBackend::OPENGL3:
-		//	ImGui_ImplOpenGL3_DestroyDeviceObjects();
-		//	break;
-	}
-
-	DestroyDeviceUI();
-
-	switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
-		case RenderingBackend::DX11:
-			ImGui_ImplDX11_CreateDeviceObjects();
-			break;
-		case RenderingBackend::DX12:
-			ImGui_ImplDX12_CreateDeviceObjects();
-			break;
-		//case RenderingBackend::OPENGL2:
-		//	ImGui_ImplOpenGL2_CreateDeviceObjects();
-		//	break;
-		//case RenderingBackend::OPENGL3:
-		//	ImGui_ImplOpenGL3_CreateDeviceObjects();
-		//	break;
-	}
-
-}
-
+//void CUIService::ResetDeviceUI()
+//{
+//
+//	switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
+//		case RenderingBackend::DX11:
+//			ImGui_ImplDX11_InvalidateDeviceObjects();
+//			break;		
+//		case RenderingBackend::DX12:
+//			ImGui_ImplDX12_InvalidateDeviceObjects();
+//			break;
+//		//case RenderingBackend::OPENGL2:
+//		//	ImGui_ImplOpenGL2_DestroyDeviceObjects();
+//		//	break;
+//		//case RenderingBackend::OPENGL3:
+//		//	ImGui_ImplOpenGL3_DestroyDeviceObjects();
+//		//	break;
+//	}
+//
+//	DestroyDeviceUI();
+//
+//	switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
+//		case RenderingBackend::DX11:
+//			ImGui_ImplDX11_CreateDeviceObjects();
+//			break;
+//		case RenderingBackend::DX12:
+//			ImGui_ImplDX12_CreateDeviceObjects();
+//			break;
+//		//case RenderingBackend::OPENGL2:
+//		//	ImGui_ImplOpenGL2_CreateDeviceObjects();
+//		//	break;
+//		//case RenderingBackend::OPENGL3:
+//		//	ImGui_ImplOpenGL3_CreateDeviceObjects();
+//		//	break;
+//	}
+//
+//}
+//
 void CUIService::DestroyDeviceUI()
 {
 	if (m_pDeviceDX11)
@@ -1042,48 +1042,28 @@ void CUIService::CreateImGuiUI()
 	io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
 	ImGui_ImplWin32_Init(m_hWindow);
 
-	if (g_pXenon->g_pSystem->IsInternal()) {
-
-		switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
-			case RenderingBackend::DX11:
-				ImGui_ImplDX11_Init(m_pDeviceDX11, m_pContextDX11);
-				break;
-			case RenderingBackend::DX12:
-				ImGui_ImplDX12_Init(m_pDeviceDX12, m_nBuffersCounts, DXGI_FORMAT_R8G8B8A8_UNORM, m_pDescriptorHeapImGuiRender, m_pDescriptorHeapImGuiRender->GetCPUDescriptorHandleForHeapStart(), m_pDescriptorHeapImGuiRender->GetGPUDescriptorHandleForHeapStart());
-				break;
-			//case RenderingBackend::OPENGL2:
-			//	ImGui_ImplOpenGL2_Init();
-			//	break;
-			//case RenderingBackend::OPENGL3:
-			//	ImGui_ImplOpenGL3_Init();
-			//	break;
-		}
-	}
-	else {
-		ImGui_ImplDX11_Init(m_pDeviceDX11, m_pContextDX11);
-	}
-
-
+	ImGui_ImplDX11_Init(m_pDeviceDX11, m_pContextDX11);
+	
 	LoadDefaultFonts();
 }
 
 void CUIService::DestroyImGuiUI()
 {
 
-	switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
-	case RenderingBackend::DX11:
+	//switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
+	//case RenderingBackend::DX11:
 		ImGui_ImplDX11_Shutdown();
-		break;
-	case RenderingBackend::DX12:
-		ImGui_ImplDX12_Shutdown();
-		break;
+	//	break;
+	//case RenderingBackend::DX12:
+	//	ImGui_ImplDX12_Shutdown();
+	//	break;
 	//case RenderingBackend::OPENGL2:
 	//	ImGui_ImplOpenGL2_Shutdown();
 	//	break;
 	//case RenderingBackend::OPENGL3:
 	//	ImGui_ImplOpenGL3_Shutdown();
 	//	break;
-	}
+	//}
 
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
@@ -1105,49 +1085,49 @@ void CUIService::DestroyImGuiUI()
 	}
 
 }
-
-void CUIService::BeginRenderUI()
-{
-
-	if (g_pXenon->g_pSystem->IsInternal()) {
-		switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
-			case RenderingBackend::DX11:
-				ImGui_ImplDX11_NewFrame();
-				break;
-			case RenderingBackend::DX12:
-				ImGui_ImplDX12_NewFrame();
-				break;
-			//case RenderingBackend::OPENGL2:
-			//	ImGui_ImplOpenGL2_NewFrame();
-			//	break;
-			//case RenderingBackend::OPENGL3:
-			//	ImGui_ImplOpenGL3_NewFrame();
-			//	break;
-		}
-	}
-	else {
-		MSG msg;
-		while (PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE)) {
-
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-
-			if (msg.message == WM_QUIT)
-			{
-				//isRunning = !isRunning;
-				return;
-			}
-		}
-
-		ImGui_ImplDX11_NewFrame();
-
-	}
-
-	ImGui_ImplWin32_NewFrame();
-	ImGui::NewFrame();
-	m_pContextDX11->OMSetDepthStencilState(m_pNoDepthStencilStateDX11, 0);
-
-}
+//
+//void CUIService::BeginRenderUI()
+//{
+//
+//	if (g_pXenon->g_pSystem->IsInternal()) {
+//		switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
+//			case RenderingBackend::DX11:
+//				ImGui_ImplDX11_NewFrame();
+//				break;
+//			case RenderingBackend::DX12:
+//				ImGui_ImplDX12_NewFrame();
+//				break;
+//			//case RenderingBackend::OPENGL2:
+//			//	ImGui_ImplOpenGL2_NewFrame();
+//			//	break;
+//			//case RenderingBackend::OPENGL3:
+//			//	ImGui_ImplOpenGL3_NewFrame();
+//			//	break;
+//		}
+//	}
+//	else {
+//		MSG msg;
+//		while (PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE)) {
+//
+//			TranslateMessage(&msg);
+//			DispatchMessage(&msg);
+//
+//			if (msg.message == WM_QUIT)
+//			{
+//				//isRunning = !isRunning;
+//				return;
+//			}
+//		}
+//
+//		ImGui_ImplDX11_NewFrame();
+//
+//	}
+//
+//	ImGui_ImplWin32_NewFrame();
+//	ImGui::NewFrame();
+//	m_pContextDX11->OMSetDepthStencilState(m_pNoDepthStencilStateDX11, 0);
+//
+//}
 
 void CUIService::InitializeDepthStencilStates() {
 	D3D11_DEPTH_STENCIL_DESC noDepthStencilDesc = {};
@@ -1172,47 +1152,47 @@ void CUIService::InitializeDepthStencilStates() {
 		return;
 	}
 }
-
-void CUIService::EndRenderUI()
-{
-
-	m_pContextDX11->OMSetDepthStencilState(m_pDefaultDepthStencilStateDX11, 0);
-
-	ImGui::EndFrame();
-
-	ImGui::Render();
-
-	if (g_pXenon->g_pSystem->IsInternal()) {
-
-		switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
-			case RenderingBackend::DX11: {
-				m_pContextDX11->OMSetRenderTargets(1U, &m_pMainRenderTargetViewDX11, nullptr);
-				ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-				break;
-			}
-			case RenderingBackend::DX12:
-				ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), nullptr);
-				break;
-			//case RenderingBackend::OPENGL2:
-			//	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
-			//	break;
-			//case RenderingBackend::OPENGL3:
-			//	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-			//	break;
-			default:
-				spdlog::error("Invalid rendering type");
-				return;
-		}
-
-	}
-	else {
-		constexpr float color[4] = { 0.f, 0.f, 0.f, 0.f };
-		m_pContextDX11->ClearRenderTargetView(m_pMainRenderTargetViewDX11, color);
-
-		m_pContextDX11->OMSetRenderTargets(1U, &m_pMainRenderTargetViewDX11, nullptr);
-
-		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-	}
-
-	if (!g_pXenon->g_pSystem->IsInternal()) m_pSwapChain->Present(1U, 0U);
-}
+//
+//void CUIService::EndRenderUI()
+//{
+//
+//	m_pContextDX11->OMSetDepthStencilState(m_pDefaultDepthStencilStateDX11, 0);
+//
+//	ImGui::EndFrame();
+//
+//	ImGui::Render();
+//
+//	if (g_pXenon->g_pSystem->IsInternal()) {
+//
+//		switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
+//			case RenderingBackend::DX11: {
+//				m_pContextDX11->OMSetRenderTargets(1U, &m_pMainRenderTargetViewDX11, nullptr);
+//				ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+//				break;
+//			}
+//			case RenderingBackend::DX12:
+//				ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), nullptr);
+//				break;
+//			//case RenderingBackend::OPENGL2:
+//			//	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
+//			//	break;
+//			//case RenderingBackend::OPENGL3:
+//			//	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+//			//	break;
+//			default:
+//				spdlog::error("Invalid rendering type");
+//				return;
+//		}
+//
+//	}
+//	else {
+//		constexpr float color[4] = { 0.f, 0.f, 0.f, 0.f };
+//		m_pContextDX11->ClearRenderTargetView(m_pMainRenderTargetViewDX11, color);
+//
+//		m_pContextDX11->OMSetRenderTargets(1U, &m_pMainRenderTargetViewDX11, nullptr);
+//
+//		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+//	}
+//
+//	if (!g_pXenon->g_pSystem->IsInternal()) m_pSwapChain->Present(1U, 0U);
+//}

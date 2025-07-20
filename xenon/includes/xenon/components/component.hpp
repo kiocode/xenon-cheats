@@ -28,9 +28,9 @@
 class CComponent {
 public:
 
-    std::shared_ptr<Xenon> g_pXenon;
-    std::shared_ptr<XenonVariables> g_pXenonVariables;
-    std::shared_ptr<XenonConfig> g_pXenonConfigs;
+    static std::shared_ptr<Xenon> g_pXenon;
+    static std::shared_ptr<XenonVariables> g_pXenonVariables;
+    static std::shared_ptr<XenonConfig> g_pXenonConfigs;
 
     /**
      * @brief Will be executed when the component is initialized.

@@ -1,7 +1,6 @@
 #include <xenon/components/features/game.hpp>
 
 #include <xenon/utility/random.hpp>
-#include <kiero/kiero.h>
 #include <xenon/models/enums/rendering_hook_type.hpp>
 #include <xenon/core/system.hpp>
 #include <xenon/components/features/radar.hpp>
@@ -14,39 +13,57 @@
 #include <xenon/components/services/memory_service.hpp>
 #include <xenon/components/services/notification_service.hpp>
 
+#include <UniversalHookX/hooks/hooks.hpp>
+#include <UniversalHookX/utils/utils.hpp>
+#include <minhook/include/MinHook.h>
+
+void Game::EnableUpdate(HINSTANCE hinstDLL) {
+
+	if (!m_pXenon->g_pSystem->IsInternal()) {
+		// error
+		return;
+	}
+
+	//switch (m_pXenon->g_pSystem->GetRenderingHookType()) {
+	//	case RenderingHookType::KIERO: {
+	//		kiero::bind(8, (void**)&m_pXenon->g_cUIService->oPresent, Game::BindForInternal);
+	//	} break;
+	//	case RenderingHookType::DISCORD: {
+	//		uint64_t discordPresentOffset = 0x1060E0;
+	//		uint64_t presentDiscordAddr = (uint64_t)(GetModuleHandleA("DiscordHook64.dll")) + discordPresentOffset;
+	//		Present* discordPresent = (Present*)presentDiscordAddr;
+	//		m_pXenon->g_cUIService->oPresent = *discordPresent;
+	//		_InterlockedExchangePointer((volatile PVOID*)presentDiscordAddr, Game::BindForInternal);
+	//	} break;
+	//	case RenderingHookType::STEAM: {
+	//		uint64_t steamPresentOffset = 0x150D70;
+	//		uint64_t presentSteamAddr = (uint64_t)(GetModuleHandleA("GameOverlayRenderer64.dll")) + steamPresentOffset;
+	//		Present* steamPresent = (Present*)presentSteamAddr;
+	//		m_pXenon->g_cUIService->oPresent = *steamPresent;
+	//		_InterlockedExchangePointer((volatile PVOID*)presentSteamAddr, Game::BindForInternal);
+	//	} break;
+	//	//case RenderingHookType::AUTO: {
+	//	//	m_pXenon->g_cUIService->AutoHook();
+	//	//} break;
+	//}
+
+	U::SetRenderingBackend(m_pXenon->g_pSystem->g_renderingBackend);
+
+	HANDLE hHandle = CreateThread(NULL, 0, BindForInternal, hinstDLL, 0, NULL);
+	if (hHandle != NULL) {
+		CloseHandle(hHandle);
+	}
+
+}
+
 void Game::EnableUpdate() {
-
 	if (m_pXenon->g_pSystem->IsInternal()) {
-
-		switch (m_pXenon->g_pSystem->GetRenderingHookType()) {
-			case RenderingHookType::KIERO: {
-				kiero::bind(8, (void**)&m_pXenon->g_cUIService->oPresent, Game::BindForInternal);
-			} break;
-			case RenderingHookType::DISCORD: {
-				uint64_t discordPresentOffset = 0x1060E0;
-				uint64_t presentDiscordAddr = (uint64_t)(GetModuleHandleA("DiscordHook64.dll")) + discordPresentOffset;
-				Present* discordPresent = (Present*)presentDiscordAddr;
-				m_pXenon->g_cUIService->oPresent = *discordPresent;
-				_InterlockedExchangePointer((volatile PVOID*)presentDiscordAddr, Game::BindForInternal);
-			} break;
-			case RenderingHookType::STEAM: {
-				uint64_t steamPresentOffset = 0x150D70;
-				uint64_t presentSteamAddr = (uint64_t)(GetModuleHandleA("GameOverlayRenderer64.dll")) + steamPresentOffset;
-				Present* steamPresent = (Present*)presentSteamAddr;
-				m_pXenon->g_cUIService->oPresent = *steamPresent;
-				_InterlockedExchangePointer((volatile PVOID*)presentSteamAddr, Game::BindForInternal);
-			} break;
-			//case RenderingHookType::AUTO: {
-			//	m_pXenon->g_cUIService->AutoHook();
-			//} break;
-		}
-	}
-	else {
-
-		// enable hooks
-		BindForExternal();
+		// error
+		return;
 	}
 
+	// enable hooks
+	BindForExternal();
 }
 
 #pragma region Game:Private
@@ -74,7 +91,7 @@ void Game::BindForExternal() {
 
 		Update();
 
-		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
 	}
 
@@ -84,29 +101,49 @@ void Game::BindForExternal() {
 }
 
 // looply called by the hook
-HRESULT __stdcall Game::BindForInternal(IDXGISwapChain* pSwapChain, UINT nSyncInterval, UINT nFlags) {
+//HRESULT __stdcall Game::BindForInternal(IDXGISwapChain* pSwapChain, UINT nSyncInterval, UINT nFlags) {
+DWORD WINAPI Game::BindForInternal(LPVOID lpParam) {
 	if (!m_bInit && m_bRenderUI)
 	{
-		if (!m_pUIService->InitPresent(pSwapChain)) {
-			return m_pUIService->oPresent(pSwapChain, nSyncInterval, nFlags);
+		//if (!m_pUIService->InitPresent(pSwapChain)) {
+		//	return m_pUIService->oPresent(pSwapChain, nSyncInterval, nFlags);
+		//}
+		//else {
+		//	m_pUIService->CreateImGuiUI();
+		//	m_bInit = true;
+		//}
+
+		spdlog::info("[+] Rendering backend: %s\n", U::RenderingBackendToStr());
+
+		if (U::GetRenderingBackend() == RenderingBackend::REND_NONE) {
+			spdlog::info("[!] Looks like you forgot to set a backend. Will unload after pressing enter...");
+			std::cin.get();
+			FreeLibraryAndExitThread(reinterpret_cast<HMODULE>(lpParam), 0);
+			return 0;
 		}
-		else {
-			m_pUIService->CreateImGuiUI();
-			m_bInit = true;
-		}
+
+		MH_Initialize();
+		H::Init();
+
+		//HANDLE hCheatThread = CreateThread(NULL, 0, OnCheatLoop, NULL, 0, NULL);
+		//if (hCheatThread != NULL) {
+		//	CloseHandle(hCheatThread);
+		//	spdlog::info("[+] Cheat loop thread started\n");
+		//}
+
 	}
 
 	UpdateWrapper();
 
-	return m_pUIService->oPresent(pSwapChain, nSyncInterval, nFlags);
+	return 0;// m_pUIService->oPresent(pSwapChain, nSyncInterval, nFlags);
 }
 
 bool init = false;
 void Game::Update() {
 
-	if (m_bRenderUI) {
-		m_pUIService->BeginRenderUI();
-	}
+	//if (m_bRenderUI) {
+	//	m_pUIService->BeginRenderUI();
+	//}
 
 	TriggerEvent("Update");
 	HandleShortcuts();
@@ -158,9 +195,9 @@ void Game::Update() {
 		}
 	}
 
-	if (m_bRenderUI) {
-		m_pUIService->EndRenderUI();
-	}
+	//if (m_bRenderUI) {
+	//	m_pUIService->EndRenderUI();
+	//}
 
 }
 

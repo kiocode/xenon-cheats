@@ -378,9 +378,6 @@
     <ClInclude Include="libs\minhook\src\trampoline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\kiero\kiero.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="includes\xenon\core\cheat.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -717,6 +714,33 @@
     <ClInclude Include="includes\xenon\utility\utilities.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="libs\UniversalHookX\hooks\backend\dx9\hook_directx9.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\UniversalHookX\hooks\backend\dx10\hook_directx10.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\UniversalHookX\hooks\backend\dx11\hook_directx11.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\UniversalHookX\hooks\backend\dx12\hook_directx12.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\UniversalHookX\hooks\backend\opengl\hook_opengl.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\UniversalHookX\hooks\backend\vulkan\hook_vulkan.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\UniversalHookX\hooks\hooks.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\UniversalHookX\utils\utils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\UniversalHookX\backend.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\game.cpp">
@@ -741,9 +765,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="libs\minhook\src\trampoline.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="libs\kiero\kiero.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\cheat.cpp">
@@ -924,6 +945,30 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="libs\ImGuiColorTextEdit\TextEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\UniversalHookX\hooks\backend\dx9\hook_directx9.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\UniversalHookX\hooks\backend\dx10\hook_directx10.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\UniversalHookX\hooks\backend\dx11\hook_directx11.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\UniversalHookX\hooks\backend\dx12\hook_directx12.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\UniversalHookX\hooks\backend\opengl\hook_opengl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\UniversalHookX\hooks\backend\vulkan\hook_vulkan.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\UniversalHookX\hooks\hooks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\UniversalHookX\utils\utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

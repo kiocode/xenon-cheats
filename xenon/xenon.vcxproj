@@ -239,7 +239,6 @@
     <ClInclude Include="libs\imgui\imstb_rectpack.h" />
     <ClInclude Include="libs\imgui\imstb_textedit.h" />
     <ClInclude Include="libs\imgui\imstb_truetype.h" />
-    <ClInclude Include="libs\kiero\kiero.h" />
     <ClInclude Include="libs\minhook\include\MinHook.h" />
     <ClInclude Include="libs\minhook\src\buffer.h" />
     <ClInclude Include="libs\minhook\src\hde\hde32.h" />
@@ -384,6 +383,15 @@
     <ClInclude Include="libs\spdlog\stopwatch.h" />
     <ClInclude Include="libs\spdlog\tweakme.h" />
     <ClInclude Include="libs\spdlog\version.h" />
+    <ClInclude Include="libs\UniversalHookX\backend.hpp" />
+    <ClInclude Include="libs\UniversalHookX\hooks\backend\dx10\hook_directx10.hpp" />
+    <ClInclude Include="libs\UniversalHookX\hooks\backend\dx11\hook_directx11.hpp" />
+    <ClInclude Include="libs\UniversalHookX\hooks\backend\dx12\hook_directx12.hpp" />
+    <ClInclude Include="libs\UniversalHookX\hooks\backend\dx9\hook_directx9.hpp" />
+    <ClInclude Include="libs\UniversalHookX\hooks\backend\opengl\hook_opengl.hpp" />
+    <ClInclude Include="libs\UniversalHookX\hooks\backend\vulkan\hook_vulkan.hpp" />
+    <ClInclude Include="libs\UniversalHookX\hooks\hooks.hpp" />
+    <ClInclude Include="libs\UniversalHookX\utils\utils.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="includes\xenon\models\enums\injection_type.hpp" />
@@ -401,7 +409,6 @@
     <ClCompile Include="libs\imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="libs\imgui\imgui_tables.cpp" />
     <ClCompile Include="libs\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="libs\kiero\kiero.cpp" />
     <ClCompile Include="libs\minhook\src\buffer.c" />
     <ClCompile Include="libs\minhook\src\hde\hde32.c" />
     <ClCompile Include="libs\minhook\src\hde\hde64.c" />
@@ -441,6 +448,14 @@
     <ClCompile Include="libs\lua\lutf8lib.c" />
     <ClCompile Include="libs\lua\lvm.c" />
     <ClCompile Include="libs\lua\lzio.c" />
+    <ClCompile Include="libs\UniversalHookX\hooks\backend\dx10\hook_directx10.cpp" />
+    <ClCompile Include="libs\UniversalHookX\hooks\backend\dx11\hook_directx11.cpp" />
+    <ClCompile Include="libs\UniversalHookX\hooks\backend\dx12\hook_directx12.cpp" />
+    <ClCompile Include="libs\UniversalHookX\hooks\backend\dx9\hook_directx9.cpp" />
+    <ClCompile Include="libs\UniversalHookX\hooks\backend\opengl\hook_opengl.cpp" />
+    <ClCompile Include="libs\UniversalHookX\hooks\backend\vulkan\hook_vulkan.cpp" />
+    <ClCompile Include="libs\UniversalHookX\hooks\hooks.cpp" />
+    <ClCompile Include="libs\UniversalHookX\utils\utils.cpp" />
     <ClCompile Include="src\components\features\aimbot.cpp" />
     <ClCompile Include="src\components\features\esp.cpp" />
     <ClCompile Include="src\components\features\radar.cpp" />

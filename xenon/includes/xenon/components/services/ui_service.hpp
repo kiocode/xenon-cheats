@@ -32,8 +32,8 @@
 #include <xenon/utility/imgui_helper.hpp>
 
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-typedef HRESULT(__stdcall* Present) (IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
-typedef LRESULT(CALLBACK* WNDPROC)(HWND, UINT, WPARAM, LPARAM);
+//typedef HRESULT(__stdcall* Present) (IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
+//typedef LRESULT(CALLBACK* WNDPROC)(HWND, UINT, WPARAM, LPARAM);
 
 enum Tabs {
     AIM = 0,
@@ -60,8 +60,12 @@ public:
     Hotkey testhotkey;
     bool isEditing = false;
 
-    Present oPresent = NULL;
-    WNDPROC oWndProc = NULL;
+    inline static bool* m_bShowMenu = nullptr;
+    inline static std::shared_ptr<System> m_pSystem = nullptr;
+    //inline static WNDPROC* m_pOWndProc = nullptr;
+    // 
+    //Present oPresent = NULL;
+    //WNDPROC oWndProc = NULL;
 
     /**
      * @brief Initialize the UI service.
@@ -69,7 +73,18 @@ public:
     void Init() override {
         m_bShowMenu = &g_pXenonVariables->g_bShowMenu;
         m_pSystem = g_pXenon->g_pSystem;
-        m_pOWndProc = &oWndProc;
+        //m_pOWndProc = &oWndProc;
+    }
+
+    inline static void InitializeContext(HWND hwnd) {
+        if (ImGui::GetCurrentContext())
+            return;
+
+        ImGui::CreateContext();
+        ImGui_ImplWin32_Init(hwnd);
+
+        ImGuiIO& io = ImGui::GetIO();
+        io.IniFilename = io.LogFilename = nullptr;
     }
 
     /**
@@ -77,7 +92,7 @@ public:
      * @param pSwapChain Swap chain.
      * @return True if the present function was initialized, false otherwise.
      */
-    bool InitPresent(IDXGISwapChain* pSwapChain);
+    //bool InitPresent(IDXGISwapChain* pSwapChain);
 
     /**
      * @brief Initialize the external function.
@@ -87,7 +102,7 @@ public:
     /**
      * @brief Update the UI.
      */
-    void UpdateUI();
+    static void UpdateUI();
 
     /**
      * @brief Destroy the UI.
@@ -97,22 +112,22 @@ public:
     /**
      * @brief Begin render the UI.
      */
-    void BeginRenderUI();
+    //void BeginRenderUI();
 
     /**
      * @brief End render the UI.
      */
-    void EndRenderUI();
+    //void EndRenderUI();
 
     /**
      * @brief Set the menu open.
      */
-    void SetMenuOpen();
+    static void SetMenuOpen();
 
     /**
      * @brief Set the menu close.
      */
-    void SetMenuClose();
+    static void SetMenuClose();
 
     /**
      * @brief Create the ImGui UI.
@@ -122,77 +137,73 @@ public:
     /**
      * @brief Render the crosshair.
      */
-    void RenderCrosshair();
+    static void RenderCrosshair();
 
     /**
      * @brief Render the FOV.
      */
-    void RenderFov();
+    static void RenderFov();
 
     /**
      * @brief Render the enabled cheats.
      */
-    void RenderEnabledCheats();
+    static void RenderEnabledCheats();
 
     /**
      * @brief Update the UI.
      */
-    void Update() override;
+    static void Render();
 
 private:
 
-    HWND m_hWindow = NULL; 
+    inline static HWND m_hWindow = NULL; 
     WNDCLASSEXW m_wClass{}; 
-    IDXGISwapChain* m_pSwapChain = nullptr; 
+    IDXGISwapChain* m_pSwapChain = nullptr;
     D3D_FEATURE_LEVEL m_dLevel{}; 
 
-    ID3D11Device* m_pDeviceDX11 = nullptr; 
-    ID3D11DeviceContext* m_pContextDX11 = nullptr; 
+    ID3D11Device* m_pDeviceDX11 = nullptr;
+    ID3D11DeviceContext* m_pContextDX11 = nullptr;
     ID3D11RenderTargetView* m_pMainRenderTargetViewDX11 = nullptr;
 
-    ID3D12Device* m_pDeviceDX12 = nullptr; 
-    ID3D12DescriptorHeap* m_pDescriptorHeapImGuiRender;
-    uint8_t m_nBuffersCounts = -1;
+    //ID3D12Device* m_pDeviceDX12 = nullptr; 
+    //ID3D12DescriptorHeap* m_pDescriptorHeapImGuiRender;
+    //uint8_t m_nBuffersCounts = -1;
 
     ID3D11DepthStencilState* m_pNoDepthStencilStateDX11 = nullptr;
     ID3D11DepthStencilState* m_pDefaultDepthStencilStateDX11 = nullptr; 
 
-    ImFont* m_pMainFont = nullptr; 
-    ImFont* m_pBiggerMainFont = nullptr;
-    int m_nSelectedTab = 0; 
-    int m_nSelectedSubTab = 0; 
-
-    bool m_bDevTab = false; 
+    inline static ImFont* m_pMainFont = nullptr;
+    inline static ImFont* m_pBiggerMainFont = nullptr;
+    inline static int m_nSelectedTab = 0;
+    inline static int m_nSelectedSubTab = 0;
+     
+    inline static bool m_bDevTab = false;
 
     static LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
-    void RenderFovLine(float offset);
+    static void RenderFovLine(float offset);
 
     void InitializeDepthStencilStates();
 
-    void LoadDefaultFonts();
+    static void LoadDefaultFonts();
 
     bool CreateWindowUI();
 
     bool CreateDeviceUI();
 
-    void RenderDefaultTheme(bool rainbowBorders);
+    static void RenderDefaultTheme(bool rainbowBorders);
 
-    void RenderDefaultUIQuickActions();
+    static void RenderDefaultUIQuickActions();
 
-    void RenderDefaultMenu();
+    static void RenderDefaultMenu();
 
-    void RenderMouse();
+    static void RenderMouse();
 
-    void ResetDeviceUI();
+    //void ResetDeviceUI();
 
     void DestroyWindowUI();
 
     void DestroyDeviceUI();
 
     void DestroyImGuiUI();
-
-    inline static bool* m_bShowMenu = nullptr;
-    inline static std::shared_ptr<System> m_pSystem = nullptr;
-    inline static WNDPROC* m_pOWndProc = nullptr;
 };

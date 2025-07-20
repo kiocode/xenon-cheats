@@ -32,6 +32,7 @@
  */
 class System {
 public:
+	RenderingBackend g_renderingBackend = RenderingBackend::REND_NONE;
 
 	intptr_t g_pUnityBase;
 	intptr_t g_pUnityGameAssembly;
@@ -157,25 +158,25 @@ public:
 		return m_gameDimension == GameDimension::DIM_3D;
 	}
 
-    /**
-     * @brief Set the rendering hook type.
-     */
-	void SetRenderingHookType(RenderingHookType type) {
+ //   /**
+ //    * @brief Set the rendering hook type.
+ //    */
+	//void SetRenderingHookType(RenderingHookType type) {
 
-		if (!m_bIsInternal) {
-			spdlog::warn("External cheat don't need this.");
-		}
+	//	if (!m_bIsInternal) {
+	//		spdlog::warn("External cheat don't need this.");
+	//	}
 
-		m_renderingHookType = type;
-	}
+	//	m_renderingHookType = type;
+	//}
 
-    /**
-     * @brief Get the rendering hook type.
-     * @return The rendering hook type.
-     */
-	RenderingHookType GetRenderingHookType() const {
-		return m_renderingHookType;
-	}
+ //   /**
+ //    * @brief Get the rendering hook type.
+ //    * @return The rendering hook type.
+ //    */
+	//RenderingHookType GetRenderingHookType() const {
+	//	return m_renderingHookType;
+	//}
 
     /**
      * @brief Set the rendering backend.
@@ -186,17 +187,8 @@ public:
 			spdlog::warn("External cheat cannot change rendering backend, DX11 will be used.");
 		}
 
-		m_renderingBackend = type;
+		g_renderingBackend = type;
 	}
-
-    /**
-     * @brief Get the rendering backend.
-     * @return The rendering backend.
-     */
-	RenderingBackend GetRenderingBackend() const {
-		return m_renderingBackend;
-	}
-
 
 private:
 	std::string m_strAppTitle;
@@ -205,8 +197,7 @@ private:
 	UnityEngineType m_unityEngineType = UnityEngineType::UNITY_NONE;
 	UnrealEngineVersion m_unrealEngineVersion = UnrealEngineVersion::UNREAL_NONE;
 	GameDimension m_gameDimension = GameDimension::DIM_NONE;
-	RenderingHookType m_renderingHookType = RenderingHookType::RENDERHOOK_NONE;
-	RenderingBackend m_renderingBackend = RenderingBackend::REND_NONE;
+	//RenderingHookType m_renderingHookType = RenderingHookType::RENDERHOOK_NONE;
 
 	void GetDesktopResolution(int& horizontal, int& vertical);
 
