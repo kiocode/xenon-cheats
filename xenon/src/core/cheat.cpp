@@ -8,7 +8,7 @@
 
 void Cheat::Run(HINSTANCE hinstDLL) {
     if (!m_pXenon->g_pSystem->IsInternal()) {
-        //error
+		spdlog::error("Use the method Run() without parameters if the cheat is external.");
         return;
     }
 

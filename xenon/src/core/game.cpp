@@ -20,7 +20,7 @@
 void Game::EnableUpdate(HINSTANCE hinstDLL) {
 
 	if (!m_pXenon->g_pSystem->IsInternal()) {
-		// error
+		spdlog::error("Use the method EnableUpdate() without parameters if the cheat is external.");
 		return;
 	}
 
@@ -58,7 +58,7 @@ void Game::EnableUpdate(HINSTANCE hinstDLL) {
 
 void Game::EnableUpdate() {
 	if (m_pXenon->g_pSystem->IsInternal()) {
-		// error
+		spdlog::error("You need to call the method EnableUpdate passing the parameter HINSTANCE hinstDLL if it's an internal cheat.");
 		return;
 	}
 
@@ -113,7 +113,7 @@ DWORD WINAPI Game::BindForInternal(LPVOID lpParam) {
 		//	m_bInit = true;
 		//}
 
-		spdlog::info("[+] Rendering backend: %s\n", U::RenderingBackendToStr());
+		spdlog::info("[+] Rendering backend: {0}\n", U::RenderingBackendToStr());
 
 		if (U::GetRenderingBackend() == RenderingBackend::REND_NONE) {
 			spdlog::info("[!] Looks like you forgot to set a backend. Will unload after pressing enter...");
@@ -133,7 +133,12 @@ DWORD WINAPI Game::BindForInternal(LPVOID lpParam) {
 
 	}
 
-	UpdateWrapper();
+	try {
+		UpdateWrapper();
+	}
+	catch (const std::exception& e) {
+			spdlog::error("[!] Exception in game update: {}", e.what());
+	}
 
 	return 0;// m_pUIService->oPresent(pSwapChain, nSyncInterval, nFlags);
 }

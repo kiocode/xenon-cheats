@@ -39,14 +39,14 @@ namespace GL {
     void Hook(HWND hwnd) {
         HMODULE openGL32 = GetModuleHandleA("opengl32.dll");
         if (openGL32) {
-            spdlog::info("[+] OpenGL32: ImageBase: 0x%p\n", openGL32);
+            spdlog::info("[+] OpenGL32: ImageBase: {:p}", static_cast<void*>(openGL32));
 
             void* fnWglSwapBuffers = reinterpret_cast<void*>(GetProcAddress(openGL32, "wglSwapBuffers"));
             if (fnWglSwapBuffers) {
                 CUIService::InitializeContext(hwnd);
 
                 // Hook
-                spdlog::info("[+] OpenGL32: fnWglSwapBuffers: 0x%p\n", fnWglSwapBuffers);
+                spdlog::info("[+] OpenGL32: fnWglSwapBuffers: {:p}", static_cast<void*>(fnWglSwapBuffers));
 
                 static MH_STATUS wsbStatus = MH_CreateHook(reinterpret_cast<void**>(fnWglSwapBuffers), &hkWglSwapBuffers, reinterpret_cast<void**>(&oWglSwapBuffers));
 

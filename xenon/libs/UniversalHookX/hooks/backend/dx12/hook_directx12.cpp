@@ -199,10 +199,11 @@ namespace DX12 {
             return;
         }
 
-        spdlog::info("[+] DirectX12: g_pd3dDevice: 0x%p\n", g_pd3dDevice);
-        spdlog::info("[+] DirectX12: g_dxgiFactory: 0x%p\n", g_dxgiFactory);
-        spdlog::info("[+] DirectX12: g_pd3dCommandQueue: 0x%p\n", g_pd3dCommandQueue);
-        spdlog::info("[+] DirectX12: g_pSwapChain: 0x%p\n", g_pSwapChain);
+        spdlog::info("[+] DirectX12: g_pd3dDevice: {:p}, g_dxgiFactory: {:p}, g_pd3dCommandQueue: {:p}, g_pSwapChain: {:p}",
+            static_cast<void*>(g_pd3dDevice),
+            static_cast<void*>(g_dxgiFactory),
+            static_cast<void*>(g_pd3dCommandQueue),
+            static_cast<void*>(g_pSwapChain));
 
         if (g_pd3dDevice) {
             CUIService::InitializeContext(hwnd);

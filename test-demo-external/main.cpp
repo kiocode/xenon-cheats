@@ -253,7 +253,7 @@ static void TestGeneral(Builder& builder) {
 	Cheat cheat = builder.Build();
 
 	cheat.UseUpdate();
-	cheat.UseUICustom(RenderingHookType::KIERO);
+	cheat.UseUICustom();
 	cheat.UseUIMenu();
 	cheat.UseUIRenderEnabledCheats();
 	//cheat.UseUIRenderWindows();
@@ -280,7 +280,7 @@ static void TestLua(Builder& builder) {
 	Cheat cheat = builder.Build();
 
 	cheat.UseUpdate();
-	cheat.UseUICustom(RenderingHookType::KIERO);
+	cheat.UseUICustom();
 	cheat.UseUIMenu();
 	cheat.UseUIQuickActions();
 	/*cheat.UseESPSnapline();

@@ -3,7 +3,6 @@
 #ifdef ENABLE_BACKEND_DX10
 #include <Windows.h>
 
-#include <d3d10.h>
 #include <dxgi1_2.h>
 
 #pragma comment(lib, "d3d10.lib")
@@ -164,8 +163,9 @@ namespace DX10 {
             return;
         }
 
-        spdlog::info("[+] DirectX10: g_pd3dDevice: 0x%p\n", g_pd3dDevice);
-        spdlog::info("[+] DirectX10: g_pSwapChain: 0x%p\n", g_pSwapChain);
+        spdlog::info("[+] DirectX10: g_pd3dDevice: {:p}, g_pSwapChain: {:p}",
+            static_cast<void*>(g_pd3dDevice),
+            static_cast<void*>(g_pSwapChain));
 
         if (g_pd3dDevice) {
             CUIService::InitializeContext(hwnd);

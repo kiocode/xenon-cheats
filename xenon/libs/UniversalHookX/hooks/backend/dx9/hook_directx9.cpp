@@ -92,8 +92,9 @@ namespace DX9 {
             return;
         }
 
-        spdlog::info("[+] DirectX9: g_pD3D: 0x%p\n", g_pD3D);
-        spdlog::info("[+] DirectX9: g_pd3dDevice: 0x%p\n", g_pd3dDevice);
+        spdlog::info("[+] DirectX9: g_pD3D: {:p}, g_pd3dDevice: {:p}",
+            static_cast<void*>(g_pD3D),
+            static_cast<void*>(g_pd3dDevice));
 
         if (g_pd3dDevice) {
             CUIService::InitializeContext(hwnd);

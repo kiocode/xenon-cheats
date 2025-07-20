@@ -170,8 +170,9 @@ namespace DX11 {
             return;
         }
 
-        spdlog::info("[+] DirectX11: g_pd3dDevice: 0x%p\n", g_pd3dDevice);
-        spdlog::info("[+] DirectX11: g_pSwapChain: 0x%p\n", g_pSwapChain);
+        spdlog::info("[+] DirectX11: g_pd3dDevice: {:p}, g_pSwapChain: {:p}",
+            static_cast<void*>(g_pd3dDevice),
+            static_cast<void*>(g_pSwapChain));
 
         if (g_pd3dDevice) {
             CUIService::InitializeContext(hwnd);

@@ -126,7 +126,7 @@ private:
     void HandleShortcuts();
 
     //static HRESULT __stdcall BindForInternal(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
-    DWORD WINAPI BindForInternal(LPVOID lpParam);
+    static DWORD WINAPI BindForInternal(LPVOID lpParam);
 
     void BindForExternal();
 
