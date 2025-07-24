@@ -146,9 +146,9 @@ DWORD WINAPI Game::BindForInternal(LPVOID lpParam) {
 bool init = false;
 void Game::Update() {
 
-	//if (m_bRenderUI) {
-	//	m_pUIService->BeginRenderUI();
-	//}
+	if (m_bRenderUI && !m_pXenon->g_pSystem->IsInternal()) {
+		m_pUIService->BeginRenderUI();
+	}
 
 	TriggerEvent("Update");
 	HandleShortcuts();
@@ -200,9 +200,9 @@ void Game::Update() {
 		}
 	}
 
-	//if (m_bRenderUI) {
-	//	m_pUIService->EndRenderUI();
-	//}
+	if (m_bRenderUI && !m_pXenon->g_pSystem->IsInternal()) {
+		m_pUIService->EndRenderUI();
+	}
 
 }
 

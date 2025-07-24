@@ -260,12 +260,12 @@ static void TestGeneral(Builder& builder) {
 	//cheat.UseUIRenderOverlays();
 	//cheat.UseUIQuickActions();
 	
-	//cheat.UseUIRadar();
+	cheat.UseUIRadar();
 	//cheat.UseAimbot();
 	//cheat.UseNoRecoil();
 	//cheat.Use2DSpinbot();
-	//cheat.UseESPSnapline();
-	//cheat.UseESPBox2D();
+	cheat.UseESPSnapline();
+	cheat.UseESPBox2D();
 	//cheat.UseESPHealthBar();
 
 	cheat.Run();

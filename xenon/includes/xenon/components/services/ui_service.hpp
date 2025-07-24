@@ -112,12 +112,12 @@ public:
     /**
      * @brief Begin render the UI.
      */
-    //void BeginRenderUI();
+    void BeginRenderUI();
 
     /**
      * @brief End render the UI.
      */
-    //void EndRenderUI();
+    void EndRenderUI();
 
     /**
      * @brief Set the menu open.
@@ -153,6 +153,11 @@ public:
      * @brief Update the UI.
      */
     static void Render();
+
+    /**
+     * @brief Update the UI if external.
+     */
+    static void Update();
 
 private:
 

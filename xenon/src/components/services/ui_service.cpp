@@ -34,6 +34,12 @@ void CUIService::Render() {
 	}
 }
 
+void CUIService::Update() {
+	if(!m_pSystem->IsInternal()) {
+		Render();
+	}
+}
+
 //bool CUIService::InitPresent(IDXGISwapChain* pSwapChain) {
 //
 //	if (!SUCCEEDED(pSwapChain->GetDevice(__uuidof(ID3D11Device), (void**)&m_pDeviceDX11)))
@@ -1085,49 +1091,30 @@ void CUIService::DestroyImGuiUI()
 	}
 
 }
-//
-//void CUIService::BeginRenderUI()
-//{
-//
-//	if (g_pXenon->g_pSystem->IsInternal()) {
-//		switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
-//			case RenderingBackend::DX11:
-//				ImGui_ImplDX11_NewFrame();
-//				break;
-//			case RenderingBackend::DX12:
-//				ImGui_ImplDX12_NewFrame();
-//				break;
-//			//case RenderingBackend::OPENGL2:
-//			//	ImGui_ImplOpenGL2_NewFrame();
-//			//	break;
-//			//case RenderingBackend::OPENGL3:
-//			//	ImGui_ImplOpenGL3_NewFrame();
-//			//	break;
-//		}
-//	}
-//	else {
-//		MSG msg;
-//		while (PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE)) {
-//
-//			TranslateMessage(&msg);
-//			DispatchMessage(&msg);
-//
-//			if (msg.message == WM_QUIT)
-//			{
-//				//isRunning = !isRunning;
-//				return;
-//			}
-//		}
-//
-//		ImGui_ImplDX11_NewFrame();
-//
-//	}
-//
-//	ImGui_ImplWin32_NewFrame();
-//	ImGui::NewFrame();
-//	m_pContextDX11->OMSetDepthStencilState(m_pNoDepthStencilStateDX11, 0);
-//
-//}
+
+void CUIService::BeginRenderUI()
+{
+
+	MSG msg;
+	while (PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE)) {
+
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+
+		if (msg.message == WM_QUIT)
+		{
+			//isRunning = !isRunning;
+			return;
+		}
+	}
+
+	ImGui_ImplDX11_NewFrame();
+
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+	m_pContextDX11->OMSetDepthStencilState(m_pNoDepthStencilStateDX11, 0);
+
+}
 
 void CUIService::InitializeDepthStencilStates() {
 	D3D11_DEPTH_STENCIL_DESC noDepthStencilDesc = {};
@@ -1152,47 +1139,22 @@ void CUIService::InitializeDepthStencilStates() {
 		return;
 	}
 }
-//
-//void CUIService::EndRenderUI()
-//{
-//
-//	m_pContextDX11->OMSetDepthStencilState(m_pDefaultDepthStencilStateDX11, 0);
-//
-//	ImGui::EndFrame();
-//
-//	ImGui::Render();
-//
-//	if (g_pXenon->g_pSystem->IsInternal()) {
-//
-//		switch (g_pXenon->g_pSystem->GetRenderingBackend()) {
-//			case RenderingBackend::DX11: {
-//				m_pContextDX11->OMSetRenderTargets(1U, &m_pMainRenderTargetViewDX11, nullptr);
-//				ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-//				break;
-//			}
-//			case RenderingBackend::DX12:
-//				ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), nullptr);
-//				break;
-//			//case RenderingBackend::OPENGL2:
-//			//	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
-//			//	break;
-//			//case RenderingBackend::OPENGL3:
-//			//	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-//			//	break;
-//			default:
-//				spdlog::error("Invalid rendering type");
-//				return;
-//		}
-//
-//	}
-//	else {
-//		constexpr float color[4] = { 0.f, 0.f, 0.f, 0.f };
-//		m_pContextDX11->ClearRenderTargetView(m_pMainRenderTargetViewDX11, color);
-//
-//		m_pContextDX11->OMSetRenderTargets(1U, &m_pMainRenderTargetViewDX11, nullptr);
-//
-//		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-//	}
-//
-//	if (!g_pXenon->g_pSystem->IsInternal()) m_pSwapChain->Present(1U, 0U);
-//}
+
+void CUIService::EndRenderUI()
+{
+
+	m_pContextDX11->OMSetDepthStencilState(m_pDefaultDepthStencilStateDX11, 0);
+
+	ImGui::EndFrame();
+
+	ImGui::Render();
+
+	constexpr float color[4] = { 0.f, 0.f, 0.f, 0.f };
+	m_pContextDX11->ClearRenderTargetView(m_pMainRenderTargetViewDX11, color);
+
+	m_pContextDX11->OMSetRenderTargets(1U, &m_pMainRenderTargetViewDX11, nullptr);
+
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	
+	m_pSwapChain->Present(1U, 0U);
+}
