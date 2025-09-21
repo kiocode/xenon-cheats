@@ -78,7 +78,6 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 	builder.SetConsoleEnabled();
 
 	pSystem->SetGameDimension(GameDimension::DIM_3D);
-	pSystem->SetRenderingBackend(RenderingBackend::DX12);
 	pSystem->m_fnW2S3D = [](Vec3 pos) {
 		SDK::FVector2D screenPos;
 		SDK::FVector unrealPos(pos.x, pos.z, pos.y);
@@ -90,7 +89,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 		}
 	};
 
-	builder.xenonConfig->g_pAimConfig->m_fDistanceScale = distanceScale;
+	pSystem->m_fDistanceScale = distanceScale;
 	builder.xenonConfig->g_pEspConfig->m_fHealthBarWidth = 35;
 
 	pUIConfig->m_qActions->AddSlider("Scale", &width, 0.01, 2);
@@ -141,13 +140,14 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 	});
 
     Cheat cheat = builder.Build();
-    cheat.UseUICustom(RenderingHookType::KIERO);
+    cheat.UseUICustom(RenderingBackend::DIRECTX12);
     cheat.UseUIMenu();
     cheat.UseUIRenderMouse();
 	cheat.UseUIRenderEnabledCheats();
 	cheat.UseUIQuickActions();
 
-    cheat.Run();
+	HMODULE hModule = static_cast<HMODULE>(lpReserved);
+	cheat.Run(hModule);
 
     return TRUE;
 }
