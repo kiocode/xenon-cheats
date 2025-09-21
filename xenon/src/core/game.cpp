@@ -16,6 +16,7 @@
 #include <UniversalHookX/hooks/hooks.hpp>
 #include <UniversalHookX/utils/utils.hpp>
 #include <minhook/include/MinHook.h>
+#include <iostream>
 
 void Game::EnableUpdate(HINSTANCE hinstDLL) {
 
@@ -132,7 +133,7 @@ DWORD WINAPI Game::BindForInternal(LPVOID lpParam) {
 		//}
 
 	}
-
+ 
 	try {
 		UpdateWrapper();
 	}

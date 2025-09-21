@@ -157,7 +157,7 @@ public:
     /**
      * @brief Update the UI if external.
      */
-    static void Update();
+    void Update() override;
 
 private:
 

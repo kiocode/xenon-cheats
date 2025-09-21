@@ -22,17 +22,20 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 	builder.SetInfoLogLevel();
 	builder.SetConsoleEnabled();
 
-	pSystem->SetGameDimension(GameDimension::DIM_3D);
+	pSystem->SetGameDimension(GameDimension::DIM_2D);
 
-	builder.xenon->g_pSystem->m_fDistanceScale = 0.08;
-	builder.xenonConfig->g_pEspConfig->m_fHealthBarWidth = 35;
+	//builder.xenon->g_pSystem->m_fDistanceScale = 0.08;
+	//builder.xenonConfig->g_pEspConfig->m_fHealthBarWidth = 35;
 
-	pUIConfig->m_qActions->AddSlider("Radar Zoom", &pRadarConfig->m_fZoom, 0.3, 5);
-	pUIConfig->m_qActions->AddButton("Reset Radar Zoom", [pRadarConfig]() { pRadarConfig->m_fZoom = 1; });
-	pUIConfig->m_qActions->AddSlider("Radar Type", &pRadarConfig->m_nType, 0, 1);
+	//pUIConfig->m_qActions->AddSlider("Radar Zoom", &pRadarConfig->m_fZoom, 0.3, 5);
+	//pUIConfig->m_qActions->AddButton("Reset Radar Zoom", [pRadarConfig]() { pRadarConfig->m_fZoom = 1; });
+	//pUIConfig->m_qActions->AddSlider("Radar Type", &pRadarConfig->m_nType, 0, 1);
 
-	pUIConfig->m_qActions->AddButton("Set Waypoint", [pGameVariables, pWaypoints]() {
-		pWaypoints->SetWaypoint("test", pGameVariables->g_vLocal.m_vPos3D, ImColor(255, 255, 255));
+	//pUIConfig->m_qActions->AddButton("Set Waypoint", [pGameVariables, pWaypoints]() {
+	//	pWaypoints->SetWaypoint("test", pGameVariables->g_vLocal.m_vPos3D, ImColor(255, 255, 255));
+	//});
+
+	builder.GameManager->OnEvent("Update", [builder, pGameVariables]() {
 	});
 
 	Cheat cheat = builder.Build();
@@ -45,7 +48,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 	cheat.UseESPHealthBar();
 	cheat.UseUIRenderOverlays();*/
 	cheat.UseUIRenderEnabledCheats();
-	cheat.UseUIQuickActions();
+	//cheat.UseUIQuickActions();
 	//cheat.UseAimbot();
 
 	HMODULE hModule = static_cast<HMODULE>(lpReserved);

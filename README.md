@@ -59,7 +59,9 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
     std::shared_ptr<GameVariables> pGameVariables = builder.xenonConfig->g_pGameVariables;
     // ... (setup configurations and features)
     Cheat cheat = builder.Build();
-    cheat.Run();
+    cheat.UseUICustom(RenderingBackend::DIRECTX11);
+	HMODULE hModule = static_cast<HMODULE>(lpReserved);
+	cheat.Run(hModule);    
     return TRUE;
 }
 
@@ -172,9 +174,10 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
     });
 
     Cheat cheat = builder.Build();
-    cheat.UseUICustom(RenderingHookType::KIERO);
+    cheat.UseUICustom(RenderingBackend::DIRECTX11);
     cheat.UseUIMenu();
-    cheat.Run();
+	HMODULE hModule = static_cast<HMODULE>(lpReserved);
+	cheat.Run(hModule);        
 
     return TRUE;
 }

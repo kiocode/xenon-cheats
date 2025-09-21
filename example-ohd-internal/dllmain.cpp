@@ -24,7 +24,6 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
     pSystem->IsInternal(true);
     pSystem->IsUnrealEngine(UnrealEngineVersion::UE4);
     pSystem->SetGameDimension(GameDimension::DIM_3D);
-    pSystem->SetRenderingBackend(RenderingBackend::DX11);
 
     builder.SetInfoLogLevel();
     builder.SetConsoleEnabled();
@@ -119,7 +118,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
 	pUIConfig->m_qActions->AddSlider("Width", &width, 100000, 300000);
     pUIConfig->m_qActions->AddSlider("Head", &head, 0, 900);
     pUIConfig->m_qActions->AddSlider("Feet", &feet, -900, 0);
-    pUIConfig->m_qActions->AddSlider("Distance scale", &pAimConfig->m_fDistanceScale, 0.001, 2);
+    pUIConfig->m_qActions->AddSlider("Distance scale", &pSystem->m_fDistanceScale, 0.001, 2);
     pUIConfig->m_qActions->AddSlider("Radar scale", &pRadarConfig->m_fDefaultScale, 0, 100000);
     pUIConfig->m_qActions->AddSlider("Limit Esp Distance", &pEspConfig->m_nLimitDistance, 0, 100000);
     pUIConfig->m_qActions->AddSlider("Limit Aim Distance", &pAimConfig->m_nLimitDistance, 0, 100000);
@@ -190,14 +189,15 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
     });
 
     Cheat cheat = builder.Build();
-    cheat.UseUICustom(RenderingHookType::KIERO);
+    cheat.UseUICustom(RenderingBackend::DIRECTX11);
     cheat.UseUIMenu();
     cheat.UseUIRenderMouse();
     cheat.UseUIRenderEnabledCheats(); // <-- minecraft style at right top
     cheat.UseUIRenderOverlays(); 
     cheat.UseUIQuickActions(); // testing values of the game like scales
 
-    cheat.Run();
+    HMODULE hModule = static_cast<HMODULE>(lpReserved);
+    cheat.Run(hModule);
 
     return TRUE;
 }

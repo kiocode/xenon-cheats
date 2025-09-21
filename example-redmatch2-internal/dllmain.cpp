@@ -155,13 +155,14 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 	});
 
 	Cheat cheat = builder.Build();
-	cheat.UseUICustom(RenderingHookType::KIERO, RenderingBackend::DX11);
+	cheat.UseUICustom(RenderingBackend::DIRECTX11);
 	cheat.UseUIMenu();
 	cheat.UseUIRenderOverlays();
 	cheat.UseUIRenderEnabledCheats();
 	cheat.UseUIRenderMouse();
 
-	cheat.Run();
+	HMODULE hModule = static_cast<HMODULE>(lpReserved);
+	cheat.Run(hModule);
 
 	if (IL2CPP::Initialize(true)) {
 		spdlog::info("Il2Cpp initialize success.");

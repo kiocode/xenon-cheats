@@ -37,7 +37,8 @@ public:
         std::shared_ptr<XenonConfig> pXenonConfigs,
         std::shared_ptr<XenonVariables> pXenonVariables,
         std::vector<std::shared_ptr<CComponent>> pComponents
-    ) : m_pXenon(pXenon), m_pXenonConfigs(pXenonConfigs), m_pXenonVariables(pXenonVariables), m_pComponents(pComponents) {
+    ) :m_pXenonConfigs(pXenonConfigs), m_pXenonVariables(pXenonVariables), m_pComponents(pComponents) {
+        m_pXenon = pXenon;
         m_bRenderUI = &m_pXenonVariables->g_bRenderUI;
         m_pUIService = m_pXenon->g_cUIService;
         UpdateWrapper = std::bind(&Game::Update, this);
@@ -66,11 +67,20 @@ public:
      * @param eventName The name of the event to trigger. (es. "Update")
      */
     void TriggerEvent(const std::string& eventName) {
-        if (updateCallbacks.find(eventName) != updateCallbacks.end()) {
-            for (const auto& callback : updateCallbacks[eventName]) {
+        //__try {
+        auto it = updateCallbacks.find(eventName);
+        if (it != updateCallbacks.end()) {
+            for (const auto& callback : it->second) {
                 callback();
             }
         }
+        else {
+            throw std::runtime_error("Event '" + eventName + "' not found");
+        }
+  /*      }
+        __except (EXCEPTION_EXECUTE_HANDLER) {
+            spdlog::error("[!] Exception in event '{}'", eventName);
+        }*/
     }
 
     /**
@@ -113,7 +123,7 @@ private:
 
     std::unordered_map<std::string, std::vector<std::function<void(TargetProfile* target)>>> updateCurrentTargetCallbacks;
 
-    std::shared_ptr<Xenon> m_pXenon;
+	inline static std::shared_ptr<Xenon> m_pXenon = nullptr;
 
     std::shared_ptr<XenonConfig> m_pXenonConfigs;
 

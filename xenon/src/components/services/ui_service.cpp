@@ -36,7 +36,7 @@ void CUIService::Render() {
 
 void CUIService::Update() {
 	if(!m_pSystem->IsInternal()) {
-		Render();
+		CUIService::Render();
 	}
 }
 

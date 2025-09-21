@@ -117,6 +117,10 @@ void Builder::RegisterDefaultComponents() {
 }
 
 Cheat Builder::Build() const {
+    if(!xenon || !xenonVariables || !GameManager) {
+        throw std::runtime_error("Builder not initialized");
+	}
+
     spdlog::debug("Building cheat");
     return Cheat(xenon, xenonVariables, GameManager);
 }
