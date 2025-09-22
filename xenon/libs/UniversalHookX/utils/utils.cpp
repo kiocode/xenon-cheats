@@ -71,8 +71,8 @@ namespace HookUtils {
 		char name[128];
 		GetWindowTextA(hwnd, name, RTL_NUMBER_OF(name));
         if (!printed) {   
-			spdlog::info("[+] Got window with name: '%s'\n", name);
-            printed = true;
+			spdlog::info("[+] Got window with name: '{}'", name);
+			printed = true;
 		}
 
 		return hwnd;
