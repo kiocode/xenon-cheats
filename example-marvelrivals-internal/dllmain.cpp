@@ -145,6 +145,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
     cheat.UseUIRenderMouse();
 	cheat.UseUIRenderEnabledCheats();
 	cheat.UseUIQuickActions();
+	cheat.UseUpdate()
 
 	HMODULE hModule = static_cast<HMODULE>(lpReserved);
 	cheat.Run(hModule);

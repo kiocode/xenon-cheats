@@ -861,7 +861,6 @@ bool CUIService::CreateWindowUI()
 		return false;
 	}
 
-	// Ottieni il titolo come std::string
 	std::string appTitle = *g_pXenon->g_pSystem->GetAppTitle();
 
 	int size_needed = MultiByteToWideChar(CP_UTF8, 0, appTitle.c_str(), -1, nullptr, 0);

@@ -3,6 +3,9 @@
 #include <xenon/xenon.hpp>
 #include <xenon/components/features/waypoints.hpp>
 #include <xenon/components/services/lua_service.hpp>
+#include <imgui/imgui.h>
+#include <sol/sol.hpp>
+#include <spdlog/spdlog.h>
 
 static void AddConfigurations(Builder& builder) {
 
@@ -250,6 +253,8 @@ static void TestGeneral(Builder& builder) {
 	builder.xenonConfig->g_pUIConfig->m_qActions->AddSlider("Distance Scale", &builder.xenon->g_pSystem->m_fDistanceScale, 0.0f, 100.0f);
 	builder.xenonConfig->g_pUIConfig->m_qActions->AddButton("Send test notification", [builder]() { builder.xenon->g_cNotificationService->Notify("Test", "Test message"); });
 
+	builder.GameManager->OnEvent("Update", []() {});
+
 	Cheat cheat = builder.Build();
 
 	cheat.UseUpdate();
@@ -394,8 +399,8 @@ static void RunTests() {
 	builder.xenon->g_pSystem->IsInternal(false);
 	builder.xenon->g_pSystem->SetGameDimension(GameDimension::DIM_2D);
 	builder.xenon->g_pSystem->m_fnW2S2D = [](Vec2 pos) { return Vec2(pos.x, pos.y); };
-	builder.SetConsoleEnabled();
-	builder.SetDebugLogLevel();
+	//builder.SetConsoleEnabled();
+	//builder.SetDebugLogLevel();
 
 	TestGeneral(builder);
 	//TestLua(builder);
@@ -411,7 +416,10 @@ int main()
 		RunTests();
 	}
 	catch (const std::exception& e) {
-		std::cout << e.what() << std::endl;
+		spdlog::error("Exception: {}", e.what());
+	}
+	catch (...) {
+		spdlog::error("Unknown exception occurred");
 	}
 
 	return 0;

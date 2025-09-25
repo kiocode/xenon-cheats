@@ -146,6 +146,7 @@ DWORD WINAPI Game::BindForInternal(LPVOID lpParam) {
 
 bool init = false;
 void Game::Update() {
+	if (!m_pXenonVariables->g_bUpdate) return;
 
 	if (m_bRenderUI && !m_pXenon->g_pSystem->IsInternal()) {
 		m_pUIService->BeginRenderUI();
