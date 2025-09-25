@@ -1215,7 +1215,7 @@ SOFTWARE.
 ### Community
 
 - **Discord**: [Xenon Community Server](https://discord.gg/DceN7MuHGu)
-- **Reddit**: [r/GameHacking](https://reddit.com/r/GameHacking) (you can try to ask about)
+- **Reddit**: (will be created if requested)
 - **YouTube**: Tutorial videos ([First Video](https://youtu.be/t6bu8GVjp1I?si=8bXNeL3MPiZfinUz), [Second Video](https://youtu.be/N6ny3yoWxlc?si=Ez31x3fczTq_38cI), if you make a video send it on the discord server and tag the staff to be added there)
 
 ---
