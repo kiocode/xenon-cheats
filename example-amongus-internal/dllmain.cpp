@@ -31,7 +31,6 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 	builder.SetConsoleEnabled();
 
     pSystem->SetGameDimension(GameDimension::DIM_2D);
-    pSystem->SetRenderingBackend(RenderingBackend::DX11);
 	pSystem->m_fnW2S2D = [pSystem, pGameVariables](Vec2 pos) {
 		Unity::CCamera* cam = Unity::Camera::GetMain();
 
@@ -114,7 +113,8 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 	});
 
     Cheat cheat = builder.Build();
-    cheat.UseUICustom(RenderingHookType::KIERO);
+	cheat.UseUpdate();
+    cheat.UseUICustom(RenderingBackend::DIRECTX11);
     cheat.UseUIMenu();
 
     cheat.Run();

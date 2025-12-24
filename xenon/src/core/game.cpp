@@ -72,29 +72,17 @@ void Game::EnableUpdate() {
 // called one time and it makes a loop of call manually
 void Game::BindForExternal() {
 
-	auto previousTime = std::chrono::steady_clock::now();
-	m_pXenon->g_pSystem->g_fStartPlayTime = static_cast<float>(previousTime.time_since_epoch().count());
-
 	if (m_pXenonVariables->g_bRenderUI) {
 		m_pXenon->g_cUIService->InitExternal();
 	}
 
 	//update loop
-	while (m_pXenonVariables->g_bUpdate) {
-		if(!m_pXenon->g_cMemoryService->IsGameRunning()) {
-			spdlog::error("Game is not running, exiting...");
-			exit(0);
-		}
-
-		auto currentTime = std::chrono::steady_clock::now();
-		m_pXenon->g_pSystem->g_fDeltaTime = std::chrono::duration<float>(currentTime - previousTime).count();
-		previousTime = currentTime;
-
-		Update();
-
-		std::this_thread::sleep_for(std::chrono::milliseconds(1));
-
-	}
+	//HANDLE hCheatThread = CreateThread(NULL, 0, Game::OnCheatLoop, NULL, 0, NULL);
+	//if (hCheatThread != NULL) {
+	//	CloseHandle(hCheatThread);
+	//	spdlog::info("[+] Cheat loop thread started\n");
+	//}
+	OnCheatLoop(NULL);
 
 	if (m_pXenonVariables->g_bRenderUI) {
 		m_pXenon->g_cUIService->Destroy();
@@ -126,22 +114,45 @@ DWORD WINAPI Game::BindForInternal(LPVOID lpParam) {
 		MH_Initialize();
 		H::Init();
 
-		//HANDLE hCheatThread = CreateThread(NULL, 0, OnCheatLoop, NULL, 0, NULL);
-		//if (hCheatThread != NULL) {
-		//	CloseHandle(hCheatThread);
-		//	spdlog::info("[+] Cheat loop thread started\n");
-		//}
+		HANDLE hCheatThread = CreateThread(NULL, 0, Game::OnCheatLoop, NULL, 0, NULL);
+		if (hCheatThread != NULL) {
+			CloseHandle(hCheatThread);
+			spdlog::info("[+] Cheat loop thread started\n");
+		}
 
 	}
  
-	try {
-		UpdateWrapper();
-	}
-	catch (const std::exception& e) {
-			spdlog::error("[!] Exception in game update: {}", e.what());
-	}
+	//try {
+	//	UpdateWrapper();
+	//}
+	//catch (const std::exception& e) {
+	//		spdlog::error("[!] Exception in game update: {}", e.what());
+	//}
 
 	return 0;// m_pUIService->oPresent(pSwapChain, nSyncInterval, nFlags);
+}
+
+DWORD WINAPI Game::OnCheatLoop(LPVOID lpParam) {
+	auto previousTime = std::chrono::steady_clock::now();
+	m_pXenon->g_pSystem->g_fStartPlayTime = static_cast<float>(previousTime.time_since_epoch().count());
+
+	while (m_pXenonVariables->g_bUpdate) {
+		if (!m_pXenon->g_cMemoryService->IsGameRunning()) {
+			spdlog::error("Game is not running, exiting...");
+			exit(0);
+		}
+
+		auto currentTime = std::chrono::steady_clock::now();
+		m_pXenon->g_pSystem->g_fDeltaTime = std::chrono::duration<float>(currentTime - previousTime).count();
+		previousTime = currentTime;
+
+		UpdateWrapper();
+
+		int sleepTime = 16; 
+		std::this_thread::sleep_for(std::chrono::milliseconds(sleepTime));
+
+	}
+	FreeLibraryAndExitThread(GetModuleHandleA(NULL), 0);
 }
 
 bool init = false;
@@ -165,6 +176,7 @@ void Game::Update() {
 		m_pXenon->g_cNotificationService->Notify(m_pXenon->g_pSystem->GetAppTitle()->c_str(), aBuff);
 		init = true;
 	}
+
 
 	for (TargetProfile& target : m_pXenonConfigs->g_pGameVariables->g_vTargets) {
 		TriggerEvent("UpdateCurrentTarget", &target);
@@ -209,14 +221,15 @@ void Game::Update() {
 }
 
 void Game::HandleShortcuts() {
+	if (m_pXenon->g_pSystem->IsInternal()) {
+		return;
+	}
 
 	if (GetAsyncKeyState(m_pXenonVariables->g_nToggleUIKey) & 1) {
 		m_pXenonVariables->g_bShowMenu = !m_pXenonVariables->g_bShowMenu;
 
-		if (!m_pXenon->g_pSystem->IsInternal()) {
-			if (m_pXenonVariables->g_bShowMenu) m_pXenon->g_cUIService->SetMenuOpen();
-			else m_pXenon->g_cUIService->SetMenuClose();
-		}
+		if (m_pXenonVariables->g_bShowMenu) m_pXenon->g_cUIService->SetMenuOpen();
+		else m_pXenon->g_cUIService->SetMenuClose();
 	}
 
 }

@@ -97,6 +97,8 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 
 
 	builder.GameManager->OnEvent("Update", [builder, pGameVariables]() {
+		spdlog::info("Update event triggered");
+
 		if(!FetchSDK()) return;
 		
 		pGameVariables->g_vTargets.clear();
@@ -131,6 +133,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 	});
 
     Cheat cheat = builder.Build();
+	cheat.UseUpdate();
     cheat.UseUICustom(RenderingBackend::DIRECTX11);
     cheat.UseUIMenu();
     cheat.UseUIRenderMouse();

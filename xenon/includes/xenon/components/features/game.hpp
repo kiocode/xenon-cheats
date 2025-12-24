@@ -37,8 +37,10 @@ public:
         std::shared_ptr<XenonConfig> pXenonConfigs,
         std::shared_ptr<XenonVariables> pXenonVariables,
         std::vector<std::shared_ptr<CComponent>> pComponents
-    ) :m_pXenonConfigs(pXenonConfigs), m_pXenonVariables(pXenonVariables), m_pComponents(pComponents) {
+    ) : m_pComponents(pComponents) {
         m_pXenon = pXenon;
+		m_pXenonVariables = pXenonVariables;
+		m_pXenonConfigs = pXenonConfigs;
         m_bRenderUI = &m_pXenonVariables->g_bRenderUI;
         m_pUIService = m_pXenon->g_cUIService;
         UpdateWrapper = std::bind(&Game::Update, this);
@@ -124,10 +126,8 @@ private:
     std::unordered_map<std::string, std::vector<std::function<void(TargetProfile* target)>>> updateCurrentTargetCallbacks;
 
 	inline static std::shared_ptr<Xenon> m_pXenon = nullptr;
-
-    std::shared_ptr<XenonConfig> m_pXenonConfigs;
-
-    std::shared_ptr<XenonVariables> m_pXenonVariables;
+    inline static std::shared_ptr<XenonVariables> m_pXenonVariables = nullptr;
+    inline static std::shared_ptr<XenonConfig> m_pXenonConfigs = nullptr;
 
     std::vector<std::shared_ptr<CComponent>> m_pComponents;
 
@@ -137,6 +137,7 @@ private:
 
     //static HRESULT __stdcall BindForInternal(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
     static DWORD WINAPI BindForInternal(LPVOID lpParam);
+	static DWORD WINAPI OnCheatLoop(LPVOID lpParam);
 
     void BindForExternal();
 
