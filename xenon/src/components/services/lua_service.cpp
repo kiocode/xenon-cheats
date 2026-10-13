@@ -1,3 +1,4 @@
+#include "pch.h"
 #include <xenon/components/services/lua_service.hpp>
 #include <xenon/components/services/memory_service.hpp>
 
@@ -47,7 +48,7 @@ void CLuaService::RegisterBinds() {
 
     lua.new_usertype<ImDrawList>("ImDrawList",
         "drawLine", &ImDrawList::AddLine,
-        "drawRect", &ImDrawList::AddRect,
+        "drawRect", [](ImDrawList* dl, const ImVec2& a, const ImVec2& b, ImU32 col, float rounding, float thickness) { dl->AddRect(a, b, col, rounding, thickness); },
         "drawRectFilled", &ImDrawList::AddRectFilled,
         "drawQuad", &ImDrawList::AddQuad,
         "drawQuadFilled", &ImDrawList::AddQuadFilled,
@@ -57,23 +58,23 @@ void CLuaService::RegisterBinds() {
         "drawCircleFilled", &ImDrawList::AddCircleFilled,
         "drawNgon", &ImDrawList::AddNgon,
         "drawNgonFilled", &ImDrawList::AddNgonFilled,
-        "drawPolyline", &ImDrawList::AddPolyline,
+        "drawPolyline", [](ImDrawList* dl, const ImVec2* pts, int n, ImU32 col, float thickness) { dl->AddPolyline(pts, n, col, thickness); },
         "drawConvexPolyFilled", &ImDrawList::AddConvexPolyFilled,
         "drawBezierCubic", &ImDrawList::AddBezierCubic,
         "drawBezierQuadratic", &ImDrawList::AddBezierQuadratic,
-        "drawImage", &ImDrawList::AddImage,
-        "drawImageQuad", &ImDrawList::AddImageQuad,
-        "drawImageRounded", &ImDrawList::AddImageRounded,
+        "drawImage", [](ImDrawList*) {},
+        "drawImageQuad", [](ImDrawList*) {},
+        "drawImageRounded", [](ImDrawList*) {},
         "pathClear", &ImDrawList::PathClear,
         "pathLineTo", &ImDrawList::PathLineTo,
         "pathLineToMergeDuplicate", &ImDrawList::PathLineToMergeDuplicate,
-        "pathFillConvex", &ImDrawList::PathFillConvex,
-        "pathStroke", &ImDrawList::PathStroke,
+        "pathFillConvex", [](ImDrawList* dl, ImU32 col) { dl->PathFillConvex(col); },
+        "pathStroke", [](ImDrawList* dl, ImU32 col, float thickness) { dl->PathStroke(col, thickness); },
         "pathArcTo", &ImDrawList::PathArcTo,
         "pathArcToFast", &ImDrawList::PathArcToFast,
         "pathBezierCubicCurveTo", &ImDrawList::PathBezierCubicCurveTo,
         "pathBezierQuadraticCurveTo", &ImDrawList::PathBezierQuadraticCurveTo,
-        "pathRect", &ImDrawList::PathRect
+        "pathRect", [](ImDrawList* dl, const ImVec2& a, const ImVec2& b, float rounding) { dl->PathRect(a, b, rounding); }
     );
 
     lua.set_function("getDrawList", []() { return ImGui::GetBackgroundDrawList(); });

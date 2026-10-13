@@ -35,20 +35,6 @@ extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam
 //typedef HRESULT(__stdcall* Present) (IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
 //typedef LRESULT(CALLBACK* WNDPROC)(HWND, UINT, WPARAM, LPARAM);
 
-enum Tabs {
-    AIM = 0,
-    VISUALS,
-    RADAR,
-    MISC,
-    DEV,
-    NUM_TABS
-};
-
-enum SubTabs {
-    SETTINGS = 0,
-    COLORS,
-};
-
 /**
  * @brief UI service component.
  * @details This component is responsible for rendering the UI.
@@ -56,6 +42,20 @@ enum SubTabs {
  */
 class CUIService : public CComponent {
 public:
+
+    enum Tabs {
+        AIM = 0,
+        VISUALS,
+        RADAR,
+        MISC,
+        DEV,
+        NUM_TABS
+    };
+
+    enum SubTabs {
+        SETTINGS = 0,
+        COLORS,
+    };
 
     Hotkey testhotkey;
     bool isEditing = false;
@@ -159,6 +159,8 @@ public:
      */
     void Update() override;
 
+    static void LoadDefaultFonts();
+
 private:
 
     inline static HWND m_hWindow = NULL; 
@@ -184,13 +186,22 @@ private:
      
     inline static bool m_bDevTab = false;
 
+    inline static bool  m_bLoggedIn   = false;
+    inline static char  m_sUsername[64]{};
+    inline static char  m_sPassword[64]{};
+    inline static char  m_sLicenseKey[64]{};
+    inline static int   m_nLoginMode   = 0;
+    inline static int   m_nLoginPhase  = 0;
+    inline static int   m_nLoginStep   = 0;
+    inline static float m_fLoginTimer  = 0.f;
+
+    static void RenderLoginScreen();
     static LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
     static void RenderFovLine(float offset);
 
     void InitializeDepthStencilStates();
 
-    static void LoadDefaultFonts();
 
     bool CreateWindowUI();
 

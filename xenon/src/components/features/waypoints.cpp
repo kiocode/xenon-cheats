@@ -1,3 +1,4 @@
+#include "pch.h"
 #include <xenon/components/features/waypoints.hpp>
 
 #include <xenon/models/enums/game_dimension.hpp>

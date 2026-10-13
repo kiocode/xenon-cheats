@@ -44,6 +44,7 @@ namespace GL {
             void* fnWglSwapBuffers = reinterpret_cast<void*>(GetProcAddress(openGL32, "wglSwapBuffers"));
             if (fnWglSwapBuffers) {
                 CUIService::InitializeContext(hwnd);
+                CUIService::LoadDefaultFonts(); // fonts must be added before atlas is built on first NewFrame
 
                 // Hook
                 spdlog::info("[+] OpenGL32: fnWglSwapBuffers: {:p}", static_cast<void*>(fnWglSwapBuffers));

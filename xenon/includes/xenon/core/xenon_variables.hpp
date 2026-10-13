@@ -25,50 +25,50 @@ public:
 
 	// System
 	int g_nToggleUIKey = VK_INSERT;
-	bool g_bUpdate;
-	bool g_bShowMenu;
+	bool g_bUpdate = false;
+	bool g_bShowMenu = false;
 
 	// UI
-	bool g_bRenderUI;
-	bool g_bWatermark;
-	bool g_bRenderMouse;
-	bool g_bRenderWindows;
-	bool g_bRenderOverlays;
-	bool g_bRenderEnabledCheats;
-	bool g_bRenderQuickActions;
-	bool g_bMenu;
-	bool g_bLuaEditor;
+	bool g_bRenderUI = false;
+	bool g_bWatermark = false;
+	bool g_bRenderMouse = false;
+	bool g_bRenderWindows = false;
+	bool g_bRenderOverlays = false;
+	bool g_bRenderEnabledCheats = false;
+	bool g_bRenderQuickActions = false;
+	bool g_bMenu = false;
+	bool g_bLuaEditor = false;
 	bool g_bNotifications = true;
-	bool g_bRadar;
-	bool g_bWaypoints;
+	bool g_bRadar = false;
+	bool g_bWaypoints = false;
 
 	// ESP
-	bool g_bEsp;
+	bool g_bEsp = false;
 
-	bool g_bSnapline;
-	bool g_bBox2D;
-	bool g_bBox3D;
-	bool g_bSkeleton;
-	bool g_bHealthBar;
+	bool g_bSnapline = false;
+	bool g_bBox2D = false;
+	bool g_bBox3D = false;
+	bool g_bSkeleton = false;
+	bool g_bHealthBar = false;
 
 	// Aimbot
-	bool g_bAimbot;
+	bool g_bAimbot = false;
 
-	bool g_bStartFromCenter;
-	bool g_bSilent;
-	bool g_bVisibleCheck;
-	bool g_bAutoShoot;
-	bool g_bAutoScope;
-	bool g_bSmooth;
-	bool g_bHumanize;
-	bool g_bNoSpread;
+	bool g_bStartFromCenter = false;
+	bool g_bSilent = false;
+	bool g_bVisibleCheck = false;
+	bool g_bAutoShoot = false;
+	bool g_bAutoScope = false;
+	bool g_bSmooth = false;
+	bool g_bHumanize = false;
+	bool g_bNoSpread = false;
 	bool g_bNearest = true;
-	bool g_bNoRecoil;
-	bool g_bFov;
+	bool g_bNoRecoil = false;
+	bool g_bFov = false;
 
 	// Features
-	bool g_bCrosshair;
-	bool g_bSpinbot2D;
-	bool g_bSpinbot3D;
+	bool g_bCrosshair = false;
+	bool g_bSpinbot2D = false;
+	bool g_bSpinbot3D = false;
 
 };

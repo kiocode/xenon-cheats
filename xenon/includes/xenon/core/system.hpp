@@ -97,6 +97,20 @@ public:
 	}
 
     /**
+     * @brief Set the app version string (e.g. "v2.4.0").
+     */
+	void SetAppVersion(std::string version) {
+		m_strAppVersion = version;
+	}
+
+    /**
+     * @brief Get the app version string.
+     */
+	std::string* GetAppVersion() {
+		return &m_strAppVersion;
+	}
+
+    /**
      * @brief Set if the cheat is internal.
      */
 	void IsInternal(bool isInternal) {
@@ -190,9 +204,18 @@ public:
 		g_renderingBackend = type;
 	}
 
+    void SetAttached(bool attached) { m_bAttached = attached; }
+    bool IsAttached() const         { return m_bAttached; }
+
+    void SetProfile(std::string profile) { m_strProfile = profile; }
+    std::string* GetProfile()            { return &m_strProfile; }
+
 private:
 	std::string m_strAppTitle;
+	std::string m_strAppVersion = "v1.0.0";
+	std::string m_strProfile    = "Default";
 	bool m_bIsInternal;
+	bool m_bAttached = false;
 	GameEngineType m_gameEngineType = GameEngineType::ENGINE_NONE;
 	UnityEngineType m_unityEngineType = UnityEngineType::UNITY_NONE;
 	UnrealEngineVersion m_unrealEngineVersion = UnrealEngineVersion::UNREAL_NONE;

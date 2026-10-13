@@ -1,3 +1,4 @@
+#include "pch.h"
 #include <chrono>
 
 #include <xenon/core/system.hpp>

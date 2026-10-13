@@ -1,0 +1,41 @@
+{
+  "build": "DDNet x64 Debug (ddnet/out/build/x64-Debug, Oct 2026)",
+  "vtable_rva": "0x14b99a8",
+  "gameclient": {
+    "SNAP": "0x53F620",
+    "CLIENTS": "0x54C8F0",
+    "ICLIENT": "0x53E610",
+    "COLLISION": "0x53E6D0",
+    "TUNING": "0x54C6C4",
+    "CONTROLS": "0x521410",
+    "RENDER_POS": "0x0",
+    "PRED_POS": "0x0",
+    "CLIENT_STRIDE": "0x0"
+  },
+  "snapstate": {
+    "SNAP_LOCAL_ID": "0x5850",
+    "SNAP_NUM_PLAYERS": "0x5854",
+    "SNAP_CHARACTERS": "0x5888"
+  },
+  "charinfo": {
+    "CHARINFO_STRIDE": "240",
+    "CHARINFO_ACTIVE": "0x00",
+    "CHARINFO_PREV": "0x04",
+    "CHARINFO_CUR": "0x5C"
+  },
+  "clientdata": {
+    "CLIENTDATA_STRIDE": "14192",
+    "CLIENTDATA_NAME": "0x18",
+    "CLIENTDATA_CLAN": "0x28",
+    "CLIENTDATA_TEAM": "0x50",
+    "CLIENTDATA_FREEZE_END": "0x70"
+  },
+  "controls": {
+    "CONTROLS_INPUT": "0x68"
+  },
+  "func": {
+    "IntersectLine": "0x9224D0",
+    "GetTile": "0x921410",
+    "IsSolid": "0x923CA0"
+  }
+}

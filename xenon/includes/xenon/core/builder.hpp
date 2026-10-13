@@ -44,6 +44,25 @@ public:
     Builder() : Builder("Unknown") {}
 
     /**
+     * @brief Set the app version string shown in the UI footer (e.g. "v2.4.0").
+     */
+    void SetVersion(std::string version) {
+        m_strAppVersion = version;
+        if (xenon && xenon->g_pSystem)
+            xenon->g_pSystem->SetAppVersion(version);
+    }
+
+    void SetAttached(bool attached) {
+        if (xenon && xenon->g_pSystem)
+            xenon->g_pSystem->SetAttached(attached);
+    }
+
+    void SetProfile(std::string profile) {
+        if (xenon && xenon->g_pSystem)
+            xenon->g_pSystem->SetProfile(profile);
+    }
+
+    /**
      * @brief Set the console enabled.
      */
     void SetConsoleEnabled() const;
@@ -76,6 +95,7 @@ public:
 private:
 
     std::string m_strAppTitle;
+    std::string m_strAppVersion = "v1.0.0";
 
     void RegisterDefaultComponents();
 

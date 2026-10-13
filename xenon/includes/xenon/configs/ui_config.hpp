@@ -39,6 +39,8 @@ public:
     ImColor m_cMenuOff = ImColor(16, 115, 81, 255);
     ImColor m_cMenuAccent = ImColor(24, 173, 122, 255);
 
+    bool m_bHideTaskbar = false;
+
     std::function<void()> m_fnCustomTheme;
 
     std::function<void()> m_fnCustomNotification;

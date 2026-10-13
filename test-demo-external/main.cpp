@@ -1,3 +1,4 @@
+#define NOMINMAX
 #include <windows.h>
 
 #include <xenon/xenon.hpp>
@@ -43,6 +44,7 @@ static void AddConfigurations(Builder& builder) {
 	pRadarConfig->m_fTargetsSize = 6.0f;
 
 	std::shared_ptr<UIConfig> pUIConfig = builder.xenonConfig->g_pUIConfig;
+	pUIConfig->m_bHideTaskbar = true;
 	std::shared_ptr<GameVariables> pGameVariables = builder.xenonConfig->g_pGameVariables;
 	std::shared_ptr<CWaypoints> pWaypoint = builder.xenon->g_cWaypoints;
 	std::shared_ptr<CNotificationService> pNotificationService = builder.xenon->g_cNotificationService;
@@ -396,6 +398,9 @@ static void TestRecoil(Builder& builder) {
 static void RunTests() {
 
 	Builder builder("Demo external");
+	builder.SetVersion("v2.4.0");
+	builder.SetAttached(true);
+	builder.SetProfile("Legit");
 	builder.xenon->g_pSystem->IsInternal(false);
 	builder.xenon->g_pSystem->SetGameDimension(GameDimension::DIM_2D);
 	builder.xenon->g_pSystem->m_fnW2S2D = [](Vec2 pos) { return Vec2(pos.x, pos.y); };

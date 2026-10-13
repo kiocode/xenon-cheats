@@ -1,3 +1,4 @@
+#include "pch.h"
 #include <xenon/core/builder.hpp>
 
 #include <spdlog/spdlog.h>
@@ -21,12 +22,6 @@ void Builder::SetConsoleEnabled() const {
         AttachConsole(GetCurrentProcessId());
     }
     SetConsoleTitle(xenon->g_pSystem->GetAppTitle()->c_str());
-
-    //if (SystemVariables->IsInternal()) {
-        //FILE* f;
-        //freopen_s(&f, "CONOUT$", "w", stdout);
-    system("cls");
-    //}
 
     auto console_sink = std::make_shared<spdlog::sinks::wincolor_stdout_sink_mt>();
 
@@ -79,6 +74,7 @@ void Builder::RegisterDefaultComponents() {
     #pragma region Components
     xenon->g_pSystem = std::make_shared<System>();
     xenon->g_pSystem->SetAppTitle(m_strAppTitle);
+    xenon->g_pSystem->SetAppVersion(m_strAppVersion);
 
     xenon->g_cAimbot = std::make_shared<CAimbot>();
     xenon->g_cEsp = std::make_shared<CEsp>();

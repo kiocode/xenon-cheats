@@ -1,3 +1,4 @@
+#include "pch.h"
 #include <xenon/components/features/aimbot.hpp>
 
 #include <windows.h>

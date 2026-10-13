@@ -1,3 +1,4 @@
+#include "pch.h"
 #include <xenon/components/services/aim_service.hpp>
 
 #include <spdlog/spdlog.h>

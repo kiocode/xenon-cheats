@@ -30,26 +30,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -116,8 +116,10 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatAngleIncludeAsExternal>false</TreatAngleIncludeAsExternal>
-      <AdditionalIncludeDirectories>$(SolutionDir)/xenon/includes;$(SolutionDir)/xenon/libs</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/xenon/includes;$(SolutionDir)/xenon/libs;$(SolutionDir)/xenon/src</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,8 +138,10 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)\xenon\includes;$(SolutionDir)\xenon\libs</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\xenon\includes;$(SolutionDir)\xenon\libs;$(SolutionDir)\xenon\src</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +154,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="includes\pch.h" />
     <ClInclude Include="includes\xenon\components\component.hpp" />
     <ClInclude Include="includes\xenon\components\features\aimbot.hpp" />
     <ClInclude Include="includes\xenon\components\features\esp.hpp" />
@@ -394,68 +399,202 @@
     <ClInclude Include="libs\UniversalHookX\utils\utils.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="includes\xenon\models\enums\injection_type.hpp" />
-    <ClCompile Include="includes\xenon\models\enums\unrealengine_version.hpp" />
-    <ClCompile Include="includes\xenon\utility\imgui_helper.hpp" />
-    <ClCompile Include="libs\ImGuiColorTextEdit\TextEditor.cpp" />
-    <ClCompile Include="libs\imgui\imgui.cpp" />
-    <ClCompile Include="libs\imgui\imgui_draw.cpp" />
-    <ClCompile Include="libs\imgui\imgui_impl_dx10.cpp" />
-    <ClCompile Include="libs\imgui\imgui_impl_dx11.cpp" />
-    <ClCompile Include="libs\imgui\imgui_impl_dx12.cpp" />
-    <ClCompile Include="libs\imgui\imgui_impl_dx9.cpp" />
-    <ClCompile Include="libs\imgui\imgui_impl_opengl2.cpp" />
-    <ClCompile Include="libs\imgui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="libs\imgui\imgui_impl_win32.cpp" />
-    <ClCompile Include="libs\imgui\imgui_tables.cpp" />
-    <ClCompile Include="libs\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="libs\minhook\src\buffer.c" />
-    <ClCompile Include="libs\minhook\src\hde\hde32.c" />
-    <ClCompile Include="libs\minhook\src\hde\hde64.c" />
-    <ClCompile Include="libs\minhook\src\hook.c" />
-    <ClCompile Include="libs\minhook\src\trampoline.c" />
-    <ClCompile Include="libs\lua\lapi.c" />
-    <ClCompile Include="libs\lua\lauxlib.c" />
-    <ClCompile Include="libs\lua\lbaselib.c" />
-    <ClCompile Include="libs\lua\lcode.c" />
-    <ClCompile Include="libs\lua\lcorolib.c" />
-    <ClCompile Include="libs\lua\lctype.c" />
-    <ClCompile Include="libs\lua\ldblib.c" />
-    <ClCompile Include="libs\lua\ldebug.c" />
-    <ClCompile Include="libs\lua\ldo.c" />
-    <ClCompile Include="libs\lua\ldump.c" />
-    <ClCompile Include="libs\lua\lfunc.c" />
-    <ClCompile Include="libs\lua\lgc.c" />
-    <ClCompile Include="libs\lua\linit.c" />
-    <ClCompile Include="libs\lua\liolib.c" />
-    <ClCompile Include="libs\lua\llex.c" />
-    <ClCompile Include="libs\lua\lmathlib.c" />
-    <ClCompile Include="libs\lua\lmem.c" />
-    <ClCompile Include="libs\lua\loadlib.c" />
-    <ClCompile Include="libs\lua\lobject.c" />
-    <ClCompile Include="libs\lua\lopcodes.c" />
-    <ClCompile Include="libs\lua\loslib.c" />
-    <ClCompile Include="libs\lua\lparser.c" />
-    <ClCompile Include="libs\lua\lstate.c" />
-    <ClCompile Include="libs\lua\lstring.c" />
-    <ClCompile Include="libs\lua\lstrlib.c" />
-    <ClCompile Include="libs\lua\ltable.c" />
-    <ClCompile Include="libs\lua\ltablib.c" />
-    <ClCompile Include="libs\lua\ltm.c" />
-    <ClCompile Include="libs\lua\lua.c" />
-    <ClCompile Include="libs\lua\luac.c" />
-    <ClCompile Include="libs\lua\lundump.c" />
-    <ClCompile Include="libs\lua\lutf8lib.c" />
-    <ClCompile Include="libs\lua\lvm.c" />
-    <ClCompile Include="libs\lua\lzio.c" />
-    <ClCompile Include="libs\UniversalHookX\hooks\backend\dx10\hook_directx10.cpp" />
-    <ClCompile Include="libs\UniversalHookX\hooks\backend\dx11\hook_directx11.cpp" />
-    <ClCompile Include="libs\UniversalHookX\hooks\backend\dx12\hook_directx12.cpp" />
-    <ClCompile Include="libs\UniversalHookX\hooks\backend\dx9\hook_directx9.cpp" />
-    <ClCompile Include="libs\UniversalHookX\hooks\backend\opengl\hook_opengl.cpp" />
-    <ClCompile Include="libs\UniversalHookX\hooks\backend\vulkan\hook_vulkan.cpp" />
-    <ClCompile Include="libs\UniversalHookX\hooks\hooks.cpp" />
-    <ClCompile Include="libs\UniversalHookX\utils\utils.cpp" />
+    <!-- These .hpp files are compiled directly; keep PCH disabled to avoid conflicts -->
+    <ClCompile Include="includes\xenon\models\enums\injection_type.hpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="includes\xenon\models\enums\unrealengine_version.hpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="includes\xenon\utility\imgui_helper.hpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <!-- Third-party libs: no PCH -->
+    <ClCompile Include="libs\ImGuiColorTextEdit\TextEditor.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_draw.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_impl_dx10.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_impl_dx11.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_impl_dx12.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_impl_dx9.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_impl_opengl2.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_impl_opengl3.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_impl_win32.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_tables.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_widgets.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\minhook\src\buffer.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\minhook\src\hde\hde32.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\minhook\src\hde\hde64.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\minhook\src\hook.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\minhook\src\trampoline.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lapi.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lauxlib.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lbaselib.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lcode.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lcorolib.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lctype.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\ldblib.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\ldebug.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\ldo.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\ldump.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lfunc.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lgc.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\linit.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\liolib.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\llex.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lmathlib.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lmem.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\loadlib.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lobject.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lopcodes.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\loslib.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lparser.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lstate.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lstring.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lstrlib.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\ltable.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\ltablib.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\ltm.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lua.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\luac.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lundump.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lutf8lib.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lvm.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\lua\lzio.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\UniversalHookX\hooks\backend\dx10\hook_directx10.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\UniversalHookX\hooks\backend\dx11\hook_directx11.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\UniversalHookX\hooks\backend\dx12\hook_directx12.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\UniversalHookX\hooks\backend\dx9\hook_directx9.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\UniversalHookX\hooks\backend\opengl\hook_opengl.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\UniversalHookX\hooks\backend\vulkan\hook_vulkan.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\UniversalHookX\hooks\hooks.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="libs\UniversalHookX\utils\utils.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <!-- PCH creation unit -->
+    <ClCompile Include="src\pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <!-- Xenon source files: use PCH (via global ItemDefinitionGroup setting for x64) -->
     <ClCompile Include="src\components\features\aimbot.cpp" />
     <ClCompile Include="src\components\features\esp.cpp" />
     <ClCompile Include="src\components\features\radar.cpp" />

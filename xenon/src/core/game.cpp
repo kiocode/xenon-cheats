@@ -1,3 +1,4 @@
+#include "pch.h"
 #include <xenon/components/features/game.hpp>
 
 #include <xenon/utility/random.hpp>
@@ -148,14 +149,14 @@ DWORD WINAPI Game::OnCheatLoop(LPVOID lpParam) {
 
 		UpdateWrapper();
 
-		int sleepTime = 16; 
-		std::this_thread::sleep_for(std::chrono::milliseconds(sleepTime));
+		if (m_pXenon->g_pSystem->IsInternal()) {
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
 
 	}
 	FreeLibraryAndExitThread(GetModuleHandleA(NULL), 0);
 }
 
-bool init = false;
 void Game::Update() {
 	if (!m_pXenonVariables->g_bUpdate) return;
 
@@ -170,11 +171,12 @@ void Game::Update() {
 		component->Update();
 	}
 
-	if (!init) {
+	static bool bNotified = false;
+	if (!bNotified) {
 		char aBuff[99];
 		sprintf_s(aBuff, "%s initialized", m_pXenon->g_pSystem->GetAppTitle()->c_str());
 		m_pXenon->g_cNotificationService->Notify(m_pXenon->g_pSystem->GetAppTitle()->c_str(), aBuff);
-		init = true;
+		bNotified = true;
 	}
 
 
@@ -225,11 +227,14 @@ void Game::HandleShortcuts() {
 		return;
 	}
 
-	if (GetAsyncKeyState(m_pXenonVariables->g_nToggleUIKey) & 1) {
-		m_pXenonVariables->g_bShowMenu = !m_pXenonVariables->g_bShowMenu;
+	int toggleKey = m_pXenonVariables->g_nToggleUIKey;
+	bool isMouseButton = (toggleKey == VK_LBUTTON || toggleKey == VK_RBUTTON ||
+	                      toggleKey == VK_MBUTTON  || toggleKey == VK_XBUTTON1 ||
+	                      toggleKey == VK_XBUTTON2);
 
-		if (m_pXenonVariables->g_bShowMenu) m_pXenon->g_cUIService->SetMenuOpen();
-		else m_pXenon->g_cUIService->SetMenuClose();
+	if (!isMouseButton && !m_pXenonVariables->g_bShowMenu && (GetAsyncKeyState(toggleKey) & 1)) {
+		m_pXenonVariables->g_bShowMenu = true;
+		m_pXenon->g_cUIService->SetMenuOpen();
 	}
 
 }

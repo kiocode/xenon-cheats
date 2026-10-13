@@ -1,3 +1,4 @@
+#include "pch.h"
 #include <xenon/components/services/notification_service.hpp>
 
 void CNotificationService::RenderNotifications() {
